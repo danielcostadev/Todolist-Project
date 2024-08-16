@@ -2,32 +2,30 @@ package model;
 
 import java.io.*;
 import java.util.Scanner;
+import controller.TarefaController;
 
 public class TarefaDAO {
 
     // Seta caminho do arquivo para persistencia
-    private static String caminho = "tarefas.txt";
+    private static String caminho = "tarefas.csv";
 
     // CREATE
     private static void createDAO() {
-        File file = new File(caminho);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
-            String linha = "";
 
-
-
-//            try (Scanner scanner = new Scanner(System.in)) {
-//                linha = scanner.nextLine();
-//                bw.append(linha + "\r\n");
-//            }
+            Tarefa novaTarefa = TarefaController.adicionaTarefa();
+            if (novaTarefa != null) {
+                bw.write(novaTarefa.toString() + "\n");
+            } else {
+                System.out.println("Não foi possível adicionar a tarefa.");
+            }
         } catch (IOException e) {
-            System.out.printf("Arquivo não encontrado!");
+            System.out.println("Arquivo não encontrado!");
         }
     } // FIM DO CREATE
 
     // READ
     private static void readDAO() {
-        File file = new File(caminho);
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha;
             while ((linha = br.readLine()) != null) {

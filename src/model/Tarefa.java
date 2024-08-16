@@ -8,7 +8,7 @@ public class Tarefa {
     private Long id;
     private String nome;
     private String descricao;
-    private LocalDate dataTermino = LocalDate.of(0000,00,00);
+    private LocalDate dataTermino = LocalDate.of(0001,01,01);
     private int prioridade;
     private String categoria;
     private Status status = Status.TODO;
@@ -19,6 +19,7 @@ public class Tarefa {
 
     // Construtor da classe Tarefa
     public Tarefa(Long id, String nome, String descricao, int prioridade, String categoria) {
+
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -28,13 +29,18 @@ public class Tarefa {
 
     // Getters and Setters
 
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+
+        if(id != null){
+            this.id = id;
+        } else {
+            System.out.println("Esse campo não pode ficar em branco!");
+        }
+
     }
 
     public String getNome() {
@@ -89,4 +95,10 @@ public class Tarefa {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return String.format("#%d, %s, %s, %s, %d, %s, %s", id, nome, descricao, dataTermino, prioridade, categoria, status);
+    }
 }
+
