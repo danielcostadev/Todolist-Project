@@ -46,7 +46,7 @@ public class TarefaDAO {
         StringBuilder conteudo = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha;
-            Boolean encontrou = false;
+            boolean encontrou = false;
             while ((linha = br.readLine()) != null) {
                 int start = linha.indexOf("#");
                 int end = linha.indexOf(",");
@@ -71,7 +71,7 @@ public class TarefaDAO {
             }
 
         } catch (IOException e) {
-            System.out.printf("Arquivo não encontrado!");
+            System.out.print("Arquivo não encontrado!");
         }
     } // FIM DO DELETE
 
