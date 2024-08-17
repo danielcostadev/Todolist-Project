@@ -2,8 +2,10 @@ package view;
 
 import java.util.Scanner;
 
+import static controller.TarefaController.exluirTarefaController;
 import static controller.TarefaController.mostrarTarefaController;
 import static model.TarefaDAO.criarTarefaAcao;
+import static model.TarefaDAO.deletarTarefaAcao;
 
 public class Manipulacao {
 
@@ -23,7 +25,7 @@ public class Manipulacao {
                     mostrarTarefaController();
                     break;
                 case "3":
-                    criarTarefaAcao();
+                    exluirTarefaController();
                     break;
                 case "4":
                     criarTarefaAcao();
