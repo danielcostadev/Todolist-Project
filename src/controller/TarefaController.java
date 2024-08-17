@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static model.TarefaDAO.deletarTarefaAcao;
 import static model.TarefaDAO.lerTarefaAcao;
 
 public class TarefaController {
-
-    private static List<Tarefa> listaDeTarefas = new ArrayList<>();
-
     // Entrada de dados para o usuário preencher os dados da tarefa
     public static Tarefa criarTarefaController() {
 
@@ -73,10 +71,28 @@ public class TarefaController {
         System.out.println("--------------------------------------------------------------");
     }
 
+    // Entrada de dados para escolher id da tarefa a ser deletada
+    public static String deletarTarefaController(){
+        mostrarTarefaController();
+        System.out.println(" ");
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("Digite o ID da tarefa que deseja excluir: ");
+        String idParaDeletar;
+        try (Scanner scanner = new Scanner(System.in)) {
+            idParaDeletar = scanner.nextLine();
+            while (idParaDeletar == null || idParaDeletar.trim().isEmpty()) {
+                System.out.print("ID inválido! Digite novamente: ");
+                idParaDeletar = scanner.nextLine();
+            }
+        }
+        return idParaDeletar;
+    }
+
     // Método Adicionar Tarefa Controller
     public static Tarefa adicionaTarefaController() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            // Código de leitura dos dados da tarefa
+        List<Tarefa> listaDeTarefas = new ArrayList<>();
+        try {
+            // Cria uma instância de Tarefa dos dados da tarefa
             Tarefa tarefa = criarTarefaController(); // Método que cria a tarefa
             listaDeTarefas.add(tarefa);
             System.out.println("Tarefa adicionada com sucesso.");
@@ -90,6 +106,15 @@ public class TarefaController {
     public static void mostrarTarefaController() {
         cabecalhoTarefaController();
         lerTarefaAcao();
+    }
+
+    // Método para excluir tarefa
+    public static void exluirTarefaController() {
+        try{
+            deletarTarefaAcao(deletarTarefaController());
+        } catch (Exception e){
+            System.out.println("Não foi possível deletar tarefa!");
+        }
     }
 
 }
