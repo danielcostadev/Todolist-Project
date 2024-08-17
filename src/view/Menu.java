@@ -6,7 +6,7 @@ public class Menu {
 
         /* Menu para interação com o aplicativo, para simular um pseudo Front-End*/
         System.out.println("-----------------------------------");
-        System.out.println("     TODO LIST v0.2.0     ");
+        System.out.println("     TODO LIST v0.3.0     ");
         System.out.println("      Por Daniel Costa - 2024      ");
         System.out.println("-----------------------------------");
         System.out.println("");

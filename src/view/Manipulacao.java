@@ -2,7 +2,8 @@ package view;
 
 import java.util.Scanner;
 
-import static model.TarefaDAO.criarTarefa;
+import static controller.TarefaController.mostrarTarefaController;
+import static model.TarefaDAO.criarTarefaAcao;
 
 public class Manipulacao {
 
@@ -16,16 +17,16 @@ public class Manipulacao {
             String opcao = scanner.nextLine();
             switch (opcao){
                 case "1":
-                    criarTarefa();
+                    criarTarefaAcao();
                     break;
                 case "2":
-                    criarTarefa();
+                    mostrarTarefaController();
                     break;
                 case "3":
-                    criarTarefa();
+                    criarTarefaAcao();
                     break;
                 case "4":
-                    criarTarefa();
+                    criarTarefaAcao();
                     break;
                 default:
                     System.out.printf("T");

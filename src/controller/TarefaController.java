@@ -6,14 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static model.TarefaDAO.lerTarefaAcao;
+
 public class TarefaController {
 
     private static List<Tarefa> listaDeTarefas = new ArrayList<>();
 
-    public static Tarefa criarTarefa() {
+    // Entrada de dados para o usuário preencher os dados da tarefa
+    public static Tarefa criarTarefaController() {
 
         try (Scanner scanner = new Scanner(System.in)) {
             // Coleta e validação dos dados da tarefa
+            System.out.println(" ");
             System.out.print("Digite o ID da tarefa: ");
             Long id = null;
             while (id == null) {
@@ -61,12 +65,19 @@ public class TarefaController {
             return new Tarefa(id, nome, descricao, prioridade, categoria);
         }
     }
+    // Cabecalho da lista de tarefas
+    public static void cabecalhoTarefaController(){
+        System.out.println(" ");
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("ID | NOME | DESCRICAO | DATA DE TERMINO | CATEGORIA | STATUS |");
+        System.out.println("--------------------------------------------------------------");
+    }
 
-    // Método Adicionar Tarefa
-    public static Tarefa adicionaTarefa() {
+    // Método Adicionar Tarefa Controller
+    public static Tarefa adicionaTarefaController() {
         try (Scanner scanner = new Scanner(System.in)) {
             // Código de leitura dos dados da tarefa
-            Tarefa tarefa = criarTarefa(); // Método que cria a tarefa
+            Tarefa tarefa = criarTarefaController(); // Método que cria a tarefa
             listaDeTarefas.add(tarefa);
             System.out.println("Tarefa adicionada com sucesso.");
             return tarefa; // Retorna apenas a tarefa criada recentemente
@@ -75,9 +86,10 @@ public class TarefaController {
             return null;
         }
     }
-
-//    public static Tarefa mostrarTarefas() {
-//
-//    }
+    // Método Mostrar Tarefa Controller
+    public static void mostrarTarefaController() {
+        cabecalhoTarefaController();
+        lerTarefaAcao();
+    }
 
 }

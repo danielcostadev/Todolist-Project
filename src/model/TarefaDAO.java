@@ -1,7 +1,9 @@
 package model;
 
 import java.io.*;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
 import controller.TarefaController;
 
 public class TarefaDAO {
@@ -10,10 +12,10 @@ public class TarefaDAO {
     private static String caminho = "tarefas.csv";
 
     // CREATE
-    private static void createDAO() {
+    private static void criarTarefaDAO() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho, true))) {
 
-            Tarefa novaTarefa = TarefaController.adicionaTarefa();
+            Tarefa novaTarefa = TarefaController.adicionaTarefaController();
             if (novaTarefa != null) {
                 bw.write(novaTarefa.toString() + "\n");
             } else {
@@ -25,23 +27,27 @@ public class TarefaDAO {
     } // FIM DO CREATE
 
     // READ
-    private static void readDAO() {
+    private static void LerTarefaDAO() {
+        List<String> linhas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                System.out.println(linha);
+                linhas.add(linha);
             }
         } catch (IOException e) {
             System.out.printf("Arquivo não encontrado!");
         }
+        for (String linha : linhas) {
+            System.out.println(linha);
+        }
     } // FIM DO READ
 
-    public static void criarTarefa() {
-        createDAO();
+    public static void criarTarefaAcao() {
+        criarTarefaDAO();
     }
 
-    public static void listarTarefas(){
-        readDAO();
+    public static void lerTarefaAcao() {
+        LerTarefaDAO();
     }
 
 }
