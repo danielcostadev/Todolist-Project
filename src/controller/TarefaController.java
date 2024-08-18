@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import static controller.TabelaConsoleController.tabelaConsole;
 import static model.TarefaDAO.ordenarTarefaAcao;
-import static view.Telas.cabecalhoTarefaController;
 import static view.Telas.rodapeTarefaController;
 
 public class TarefaController {

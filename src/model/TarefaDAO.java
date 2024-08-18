@@ -104,7 +104,7 @@ public class TarefaDAO {
                 System.out.println("\nValores atuais da tarefa:");
                 System.out.println("Nome: " + tarefa.getNome());
                 System.out.println("Descrição: " + tarefa.getDescricao());
-                System.out.println("Data de Término: " + (tarefa.getDataTermino().equals(LocalDate.of(1, 1, 1)) ? "NÃO FINALIZADO" : tarefa.getDataTermino()));
+                System.out.println("Data de Término: " + (tarefa.getDataTermino().equals(LocalDate.of(1, 1, 1)) ? "----------" : tarefa.getDataTermino()));
                 System.out.println("Prioridade: " + tarefa.getPrioridade());
                 System.out.println("Categoria: " + tarefa.getCategoria());
                 System.out.println("Status: " + tarefa.getStatus()+"\n");

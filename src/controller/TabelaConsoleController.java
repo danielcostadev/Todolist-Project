@@ -1,6 +1,8 @@
 package controller;
 
 import model.Tarefa;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -24,7 +26,7 @@ public class TabelaConsoleController {
                     tarefa.getId().toString(),
                     tarefa.getNome(),
                     tarefa.getDescricao(),
-                    tarefa.getDataTermino().toString(),
+                    tarefa.getDataTermino().equals(LocalDate.of(1, 1, 1)) ? "----------" : tarefa.getDataTermino().toString(),
                     Integer.toString(tarefa.getPrioridade()),
                     tarefa.getCategoria(),
                     tarefa.getStatus()
