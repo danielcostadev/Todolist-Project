@@ -32,8 +32,7 @@ public class MenuController {
                 criarTarefaAcao();
                 break;
             case "2":
-                tabelaConsole(TarefaComparator.porPrioridade());
-//                mostrarTarefaController();
+                mostrarTarefaController();
                 break;
             case "3":
                 excluirTarefaController();
