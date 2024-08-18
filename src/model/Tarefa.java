@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Tarefa {
 
@@ -8,17 +9,15 @@ public class Tarefa {
     private Long id;
     private String nome;
     private String descricao;
-    private LocalDate dataTermino = LocalDate.of(0000,00,00);
+    private LocalDate dataTermino = LocalDate.of(0001,01,01);
     private int prioridade;
     private String categoria;
-    private Status status = Status.TODO;
+    private String status = "TODO";
 
-    public enum Status {
-        TODO, DOING, DONE;
-    }
 
-    // Construtor da classe Tarefa
+    // Construtor da classe Tarefa Para CRIAÇÃO
     public Tarefa(Long id, String nome, String descricao, int prioridade, String categoria) {
+
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -26,15 +25,43 @@ public class Tarefa {
         this.categoria = categoria;
     }
 
-    // Getters and Setters
+    // Construtor da classe Tarefa Para EDIÇÃO
+    public Tarefa(String nome, String descricao,LocalDate dataTermino, int prioridade, String categoria, String status) {
 
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataTermino = dataTermino;
+        this.prioridade = prioridade;
+        this.categoria = categoria;
+        this.status = status;
+    }
+
+    // Construtor da classe Tarefa completo
+    public Tarefa(Long id, String nome, String descricao,LocalDate dataTermino, int prioridade, String categoria, String status) {
+
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataTermino = dataTermino;
+        this.prioridade = prioridade;
+        this.categoria = categoria;
+        this.status = status;
+    }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+
+        if(id != null){
+            this.id = id;
+        } else {
+            System.out.println("Esse campo não pode ficar em branco!");
+        }
+
     }
 
     public String getNome() {
@@ -82,11 +109,23 @@ public class Tarefa {
         this.categoria = categoria;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        String dataTerminoFormatada = (dataTermino != null && !dataTermino.equals(LocalDate.of(1, 1, 1)))
+//                ? dataTermino.format(formatter)
+//                : "NÃO FINALIZADO";
+
+        return String.format("%d, %s, %s, %s, %d, %s, %s", id, nome, descricao, dataTermino, prioridade, categoria, status);
+    }
 }
+
