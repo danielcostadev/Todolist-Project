@@ -104,13 +104,25 @@ TODOlist é uma aplicação Java que permite o gerenciamento eficiente de tarefa
    ```bash
    java -cp bin view.ToDoList
 
+### Download do arquivo JAR
+
+- **Link:** [Clique aqui para baixar](https://github.com/danielcostadev/Todolist-Project/raw/master/Todolist-Project.rar) 
+- Após baixar o arquivo RAR, extraia escolhendo a opção "Extrair aqui".
+- Com auxílio do seu terminal navegue até a pasta que foi extraída.
+- Para executar a aplicação utilize o comando abaixo:
+
+   ```bash
+  java -jar Todolist-Project.jar
+### !!! Não apague o arquivo "tarefas.csv" por enquanto ele é a sua base de dados.
+
 ## Contribuindo
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
 
 ## Licença
 
-None
+- **MIT LICENSE:** [Ver licença](https://github.com/danielcostadev/Todolist-Project/blob/master/LICENSE)
+
 
 ## Contato
 
