@@ -2,10 +2,13 @@ package controller;
 
 import model.Tarefa;
 import model.TarefaDAO;
+import utilitarios.TarefaComparator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static model.TarefaDAO.ordenarTarefaAcao;
 
 public class TarefaController {
 
@@ -13,10 +16,10 @@ public class TarefaController {
     private final static Scanner scanner = new Scanner(System.in);
 
     // Entrada de dados para o usuário preencher os dados da tarefa
-    public static Tarefa criarTarefaController() {
+    public static Tarefa formularioCadastroTarefaController() {
 
         // Melhoria na entrada e no tratamento de dados
-        Long id = validarLong("Digite o ID da tarefa: ");
+        Long id = validarLong("\nDigite o ID da tarefa: ");
         String nome = validarString("Digite o nome da tarefa: ");
         String descricao = validarString("Digite a descrição da tarefa: ");
         String categoria = validarString("Digite a categoria da tarefa: ");
@@ -34,7 +37,7 @@ public class TarefaController {
             try {
                 return Long.parseLong(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("ID inválido! Digite um número válido.");
+                System.out.println("\nID inválido! Digite um número válido.");
             }
         }
     }
@@ -47,7 +50,7 @@ public class TarefaController {
             if (entrada != null && !entrada.trim().isEmpty()) {
                 return entrada;
             }
-            System.out.println("Entrada inválida! Digite novamente.");
+            System.out.println("\nEntrada inválida! Digite novamente.");
         }
     }
 
@@ -60,9 +63,9 @@ public class TarefaController {
                 if (valor >= min && valor <= max) {
                     return valor;
                 }
-                System.out.println("Valor fora do intervalo! Digite um número entre " + min + " e " + max + ".");
+                System.out.println("\nValor fora do intervalo! Digite um número entre " + min + " e " + max + ".");
             } catch (NumberFormatException e) {
-                System.out.println("Número inválido! Digite um número válido.");
+                System.out.println("\nNúmero inválido! Digite um número válido.");
             }
 
         }
@@ -82,16 +85,39 @@ public class TarefaController {
         System.out.println("\n-------------------------ORDENAR POR-------------------------");
         System.out.println("1 - Prioridade   |     2 - Categoria       |        3 - Status");
         System.out.println("--------------------------------------------------------------");
+
+        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obtenha a lista de tarefas
         // Reutilização da melhoria na entrada de dados
-        int ordem = validarInt("Defina a ordenação entre 1 e 3: ", 1, 5);
+        int ordem = validarInt("\nDefina a ordenação entre 1 e 3: ", 1, 5);
+
+        switch (ordem) {
+            case 1:
+                listaDeTarefas.sort(TarefaComparator.porPrioridade());
+                break;
+            case 2:
+                listaDeTarefas.sort(TarefaComparator.porCategoria());
+                break;
+            case 3:
+                listaDeTarefas.sort(TarefaComparator.porStatus());
+        }
+
+        for (Tarefa tarefa : listaDeTarefas) {
+            System.out.println(tarefa);
+        }
 
     }
 
     // Entrada de dados para escolher id da tarefa a ser deletada
     public static String deletarTarefaController() {
-        System.out.println("\n------------------------------------------------------------");
-        mostrarTarefaController();
-        return validarString("Digite o ID da tarefa que deseja deletar: ");
+        cabecalhoTarefaController();
+        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarefas
+        // Ordenda exibição de lista por ID
+        listaDeTarefas.sort(TarefaComparator.porId());
+
+        for (Tarefa tarefa : listaDeTarefas) {
+            System.out.println(tarefa);
+        }
+        return validarString("\nDigite o ID da tarefa que deseja deletar: ");
     }
 
     // Método Adicionar Tarefa Controller se comunica com o TaferaDAO
@@ -99,12 +125,11 @@ public class TarefaController {
         List<Tarefa> listaDeTarefas = new ArrayList<>();
         try {
             // Cria uma instância de Tarefa dos dados da tarefa
-            Tarefa tarefa = criarTarefaController(); // Método que cria a tarefa
+            Tarefa tarefa = formularioCadastroTarefaController(); // Método que cria a tarefa e recebe as informações do formulário
             listaDeTarefas.add(tarefa);
-            System.out.println("Tarefa adicionada com sucesso.");
-            return tarefa; // Retorna apenas a tarefa criada recentemente
+            return tarefa; // Retorna apenas aa tarefa criada recentemente
         } catch (Exception e) {
-            System.out.println("Entrada inválida!");
+            System.out.println("\nEntrada inválida!");
             return null;
         }
     }
@@ -112,16 +137,20 @@ public class TarefaController {
     // Método Mostrar Tarefa Controller
     public static void mostrarTarefaController() {
         cabecalhoTarefaController();
-        TarefaDAO.lerTarefaAcao(); // Responsável por mostrar as tarefas
+        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarefas
+        for (Tarefa tarefa : listaDeTarefas) {
+            System.out.println(tarefa);
+        }
         rodapeTarefaController();
     }
 
     // Método para excluir tarefa
-    public static void exluirTarefaController() {
+    public static void excluirTarefaController() {
         try {
             TarefaDAO.deletarTarefaAcao(deletarTarefaController()); // Responsável por deletar as tarefas
         } catch (Exception e) {
-            System.out.println("Não foi possível deletar tarefa!");
+            System.out.println("\nNão foi possível deletar tarefa!");
         }
     }
+
 }

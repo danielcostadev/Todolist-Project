@@ -27,6 +27,18 @@ public class Tarefa {
         this.categoria = categoria;
     }
 
+    // Construtor da classe Tarefa completo
+    public Tarefa(Long id, String nome, String descricao,LocalDate dataTermino, int prioridade, String categoria, Status status) {
+
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataTermino = dataTermino;
+        this.prioridade = prioridade;
+        this.categoria = categoria;
+        this.status = status;
+    }
+
     // Getters and Setters
 
     public Long getId() {
@@ -98,7 +110,7 @@ public class Tarefa {
 
     @Override
     public String toString() {
-        return String.format("#%d, %s, %s, %s, %d, %s, %s", id, nome, descricao, dataTermino, prioridade, categoria, status);
+        return String.format("%d, %s, %s, %s, %d, %s, %s", id, nome, descricao, dataTermino, prioridade, categoria, status);
     }
 }
 

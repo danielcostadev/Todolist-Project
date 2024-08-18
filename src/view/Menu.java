@@ -2,7 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-import static controller.TarefaController.exluirTarefaController;
+import static controller.TarefaController.excluirTarefaController;
 import static controller.TarefaController.mostrarTarefaController;
 import static model.TarefaDAO.criarTarefaAcao;
 
@@ -21,7 +21,7 @@ public class Menu {
     // Método para exibir o menu
     private void exibirMenu() {
         System.out.println("----------------------");
-        System.out.println("   TODO LIST v0.5.0   ");
+        System.out.println("   TODO LIST v1.1.0   ");
         System.out.println("  Autor Daniel Costa  ");
         System.out.println("----------------------");
         System.out.println("---------MENU---------");
@@ -29,7 +29,8 @@ public class Menu {
         System.out.println("1 - CADASTRAR TAREFA");
         System.out.println("2 - LISTAR TAREFAS");
         System.out.println("3 - EXCLUIR TAREFA");
-        System.out.println("4 - ENCERRAR APLICAÇÃO");
+        System.out.println("4 - EDITAR TAREFA");
+        System.out.println("5 - ENCERRAR APLICAÇÃO");
     }
 
     // Método para validar uma entrada de String
@@ -46,7 +47,7 @@ public class Menu {
 
     // Método para verificar a opção selecionada
     private static void verificarOpcao() {
-        String opcaoSelecionada = validarString("DIGITE A OPÇÃO DESEJADA:");
+        String opcaoSelecionada = validarString("DIGITE A OPÇÃO DESEJADA: ");
         switch (opcaoSelecionada) {
             case "1":
                 criarTarefaAcao();
@@ -55,9 +56,12 @@ public class Menu {
                 mostrarTarefaController();
                 break;
             case "3":
-                exluirTarefaController();
+                excluirTarefaController();
                 break;
             case "4":
+                //editarTarefaController();
+                break;
+            case "5":
                 System.out.println("Encerrando aplicação...");
                 fecharScanner();
                 System.exit(0);
