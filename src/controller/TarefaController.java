@@ -4,6 +4,7 @@ import model.Tarefa;
 import model.TarefaDAO;
 import utilitarios.TarefaComparator;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,19 +16,64 @@ public class TarefaController {
     // Declarando o scanner como static o mesmo ficará aberto e disponível para todos os métodos que precisarem
     private final static Scanner scanner = new Scanner(System.in);
 
-    // Entrada de dados para o usuário preencher os dados da tarefa
+    // Entrada de dados para o usuário preencher os dados na criação da tarefa
     public static Tarefa formularioCadastroTarefaController() {
 
         // Melhoria na entrada e no tratamento de dados
-        Long id = validarLong("\nDigite o ID da tarefa: ");
-        String nome = validarString("Digite o nome da tarefa: ");
-        String descricao = validarString("Digite a descrição da tarefa: ");
-        String categoria = validarString("Digite a categoria da tarefa: ");
+        Long id = validarLong("\nDigite o ID: ");
+        String nome = validarString("Digite o nome: ");
+        String descricao = validarString("Digite a descrição: ");
+        int checarCategoria = validarInt("Defina a categoria 1-Trabalho | 2-Estudos | 3-Outros: ",1,3);
         int prioridade = validarInt("Defina a prioridade entre 1 e 5: ", 1, 5);
+
+        String categoria = "Outros";
+        switch (checarCategoria) {
+            case 1: categoria = "Trabalho"; break;
+            case 2: categoria = "Estudos"; break;
+            case 3: categoria = "Outros"; break;
+        }
 
         //Retorna um novo objeto
         return new Tarefa(id, nome, descricao, prioridade, categoria);
     }
+
+    // Entrada de dados para o usuário preencher os dados na EDIÇÃO da tarefa
+    public static Tarefa formularioEdicaoTarefaController() {
+
+        // Melhoria na entrada e no tratamento de dados
+        String nome = validarString("Digite o nome da tarefa: ");
+        String descricao = validarString("Digite a descrição da tarefa: ");
+        LocalDate dataTermino;
+        int prioridade = validarInt("Defina a prioridade entre 1 e 5: ", 1, 5);
+        int checarCategoria = validarInt("Defina a categoria 1-Trabalho | 2-Estudos | 3-Outros: ",1,3);
+
+        String categoria = "Outros";
+        switch (checarCategoria) {
+            case 1: categoria = "Trabalho"; break;
+            case 2: categoria = "Estudos"; break;
+            case 3: categoria = "Outros"; break;
+        }
+
+        int checarStatus = validarInt("Defina o status 1-TODO | 2-DOING | 3-DONE: ",1,3);
+
+        String status = "TODO";
+        switch (checarStatus) {
+            case 1: status = "TODO"; break;
+            case 2: status = "DOING"; break;
+            case 3: status = "DONE"; break;
+        }
+        // Verifica se a tarefa já foi finalizada e atribui uma data a dataTermino caso seja verdadeiro
+        if (status.equals("DONE")){
+            dataTermino = LocalDate.now();
+        } else {
+            dataTermino = LocalDate.of(0001,01,01);
+        }
+
+        //Retorna um novo objeto
+        return new Tarefa(nome, descricao, dataTermino, prioridade, categoria, status);
+    }
+
+
 
     // MÉTODOS PARA VALIDAÇÃO DA ENTRADA DE DADOS
     // Definição do método para validar um valor passado como Long
@@ -86,9 +132,9 @@ public class TarefaController {
         System.out.println("1 - Prioridade   |     2 - Categoria       |        3 - Status");
         System.out.println("--------------------------------------------------------------");
 
-        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obtenha a lista de tarefas
+        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarfas
         // Reutilização da melhoria na entrada de dados
-        int ordem = validarInt("\nDefina a ordenação entre 1 e 3: ", 1, 5);
+        int ordem = validarInt("\nDefina a ordenação entre 1 e 3: ", 1, 3);
 
         switch (ordem) {
             case 1:
@@ -113,11 +159,24 @@ public class TarefaController {
         List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarefas
         // Ordenda exibição de lista por ID
         listaDeTarefas.sort(TarefaComparator.porId());
-
+        // Mostra a lista de tarefas
         for (Tarefa tarefa : listaDeTarefas) {
             System.out.println(tarefa);
         }
         return validarString("\nDigite o ID da tarefa que deseja deletar: ");
+    }
+
+    // Entrada de dados para escolher id da tarefa a ser editada
+    public static String atualizarTarefaController() {
+        cabecalhoTarefaController();
+        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarefas
+        // Ordenda exibição de lista por ID
+        listaDeTarefas.sort(TarefaComparator.porId());
+        // Mostra a lista de tarefas
+        for (Tarefa tarefa : listaDeTarefas) {
+            System.out.println(tarefa);
+        }
+        return validarString("\nDigite o ID da tarefa que deseja editar: ");
     }
 
     // Método Adicionar Tarefa Controller se comunica com o TaferaDAO
@@ -150,6 +209,15 @@ public class TarefaController {
             TarefaDAO.deletarTarefaAcao(deletarTarefaController()); // Responsável por deletar as tarefas
         } catch (Exception e) {
             System.out.println("\nNão foi possível deletar tarefa!");
+        }
+    }
+
+    // Método para editar tarefa
+    public static void editarTarefaController() {
+        try {
+            TarefaDAO.editarTarefaAcao(atualizarTarefaController()); // Responsável por editar as tarefas
+        } catch (Exception e) {
+            System.out.println("\nNão foi possível editar tarefa!");
         }
     }
 

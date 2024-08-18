@@ -2,8 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-import static controller.TarefaController.excluirTarefaController;
-import static controller.TarefaController.mostrarTarefaController;
+import static controller.TarefaController.*;
 import static model.TarefaDAO.criarTarefaAcao;
 
 public class Menu {
@@ -21,7 +20,7 @@ public class Menu {
     // Método para exibir o menu
     private void exibirMenu() {
         System.out.println("----------------------");
-        System.out.println("   TODO LIST v1.1.0   ");
+        System.out.println("   TODO LIST v1.2.0   ");
         System.out.println("  Autor Daniel Costa  ");
         System.out.println("----------------------");
         System.out.println("---------MENU---------");
@@ -59,7 +58,7 @@ public class Menu {
                 excluirTarefaController();
                 break;
             case "4":
-                //editarTarefaController();
+                editarTarefaController();
                 break;
             case "5":
                 System.out.println("Encerrando aplicação...");

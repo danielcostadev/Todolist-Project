@@ -91,6 +91,75 @@ public class TarefaDAO {
         }
     } // FIM DO DELETE
 
+    // EDITAR
+    private static void editarTarefaDAO(String idParaEditar) {
+        List<Tarefa> tarefas = OrdenarTarefaDAO();
+        boolean encontrou = false;
+
+        for (int i = 0; i < tarefas.size(); i++) {
+            Tarefa tarefa = tarefas.get(i);
+            if (tarefa.getId().toString().equals(idParaEditar)) {
+                encontrou = true;
+
+                System.out.println("\nValores atuais da tarefa:");
+                System.out.println("Nome: " + tarefa.getNome());
+                System.out.println("Descrição: " + tarefa.getDescricao());
+                System.out.println("Data de Término: " + (tarefa.getDataTermino().equals(LocalDate.of(1, 1, 1)) ? "NÃO FINALIZADO" : tarefa.getDataTermino()));
+                System.out.println("Prioridade: " + tarefa.getPrioridade());
+                System.out.println("Categoria: " + tarefa.getCategoria());
+                System.out.println("Status: " + tarefa.getStatus()+"\n");
+
+//                // Coleta dados de edição do Controller
+//                Tarefa tarefaAtualizada = TarefaController.formularioEdicaoTarefaController();
+//                tarefa.setNome(tarefaAtualizada.getNome());
+//                tarefa.setDescricao(tarefaAtualizada.getDescricao());
+//                tarefa.setDataTermino(tarefaAtualizada.getDataTermino());
+//                tarefa.setPrioridade(tarefaAtualizada.getPrioridade());
+//                tarefa.setCategoria(tarefaAtualizada.getCategoria());
+//                tarefa.setStatus(tarefaAtualizada.getStatus());
+
+                // Coleta dados de edição do Controller
+                Tarefa tarefaAtualizada = TarefaController.formularioEdicaoTarefaController();
+
+                if (tarefaAtualizada.getNome() != null && !tarefaAtualizada.getNome().isEmpty()) {
+                    tarefa.setNome(tarefaAtualizada.getNome());
+                }
+                if (tarefaAtualizada.getDescricao() != null && !tarefaAtualizada.getDescricao().isEmpty()) {
+                    tarefa.setDescricao(tarefaAtualizada.getDescricao());
+                }
+                if (tarefaAtualizada.getDataTermino() != null) {
+                    tarefa.setDataTermino(tarefaAtualizada.getDataTermino());
+                }
+                if (tarefaAtualizada.getPrioridade() > 0) {
+                    tarefa.setPrioridade(tarefaAtualizada.getPrioridade());
+                }
+                if (tarefaAtualizada.getCategoria() != null && !tarefaAtualizada.getCategoria().isEmpty()) {
+                    tarefa.setCategoria(tarefaAtualizada.getCategoria());
+                }
+                if (tarefaAtualizada.getStatus() != null && !tarefaAtualizada.getStatus().isEmpty()) {
+                    tarefa.setStatus(tarefaAtualizada.getStatus());
+                }
+
+                tarefas.set(i, tarefa);
+
+            }
+        }
+
+        if (encontrou) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
+                for (Tarefa tarefa : tarefas) {
+                    bw.write(tarefa.toString());
+                    bw.newLine();
+                }
+                System.out.println("Tarefa editada com sucesso!");
+            } catch (IOException e) {
+                System.out.println("Erro ao escrever no arquivo: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Não foi possível editar a Tarefa! Tarefa não encontrada!");
+        }
+    } // FIM DO EDITAR
+
     // ORDER
     private static List<Tarefa> OrdenarTarefaDAO() {
         String linha;
@@ -109,7 +178,7 @@ public class TarefaDAO {
                     LocalDate dataTermino = LocalDate.parse(parts[3]);
                     int prioridade = Integer.parseInt(parts[4]);
                     String categoria = parts[5];
-                    Tarefa.Status status = Tarefa.Status.valueOf(parts[6]);
+                    String status = parts[6];
 
                     // Criar e adicionar tafera a lista
                     Tarefa tarefa = new Tarefa(id, nome, descricao, dataTermino, prioridade, categoria, status);
@@ -136,6 +205,9 @@ public class TarefaDAO {
         deletarTarefaDAO(idParaDeletar);
     }
 
+    public static void editarTarefaAcao(String idParaEditar) {
+        editarTarefaDAO(idParaEditar);
+    }
     public static List<Tarefa> ordenarTarefaAcao() {
         return OrdenarTarefaDAO();
     }
