@@ -27,7 +27,7 @@ TODOlist é uma aplicação Java que permite o gerenciamento eficiente de tarefa
 >
 > Estou aprimorando minhas habilidades com as comparações através do comparator, no projeto também pude utilizar referências no método de criação das tabelas para poder ordenar a lista dinamicamente de acordo com a necessidade.
 >
-> Utilize uma nova abordagem de validar os dados passados pelo usuário, onde é possível evitar exceções em tempo de execução.
+> Utilizei uma nova abordagem de validar os dados passados pelo usuário, onde é possível evitar exceções em tempo de execução.
 >
 > Também pude realizar a persistência dos dados, utilizando as classes de leitura e escrita BufferedReader e BufferedWriter para manipular o arquivo CSV.
 >
