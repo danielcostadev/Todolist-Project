@@ -25,4 +25,10 @@ public class TarefaComparator {
     public static Comparator<Tarefa> porStatus() {
         return Comparator.comparing(Tarefa::getStatus);
     }
+
+    // Comparador para ordenar por Descrição
+    public static Comparator<Tarefa> porDescricao() {return Comparator.comparing(Tarefa::getDescricao);}
+
+    // Comparador para ordenar por DataTermino
+    public static Comparator<Tarefa> porDataTermino() {return Comparator.comparing(Tarefa::getDataTermino);}
 }

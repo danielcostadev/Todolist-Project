@@ -3,13 +3,15 @@ package controller;
 import model.Tarefa;
 import model.TarefaDAO;
 import utilitarios.TarefaComparator;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static controller.TabelaConsoleController.tabelaConsole;
 import static model.TarefaDAO.ordenarTarefaAcao;
+import static view.Telas.cabecalhoTarefaController;
+import static view.Telas.rodapeTarefaController;
 
 public class TarefaController {
 
@@ -23,14 +25,20 @@ public class TarefaController {
         Long id = validarLong("\nDigite o ID: ");
         String nome = validarString("Digite o nome: ");
         String descricao = validarString("Digite a descrição: ");
-        int checarCategoria = validarInt("Defina a categoria 1-Trabalho | 2-Estudos | 3-Outros: ",1,3);
+        int checarCategoria = validarInt("Defina a categoria 1-Trabalho | 2-Estudos | 3-Outros: ", 1, 3);
         int prioridade = validarInt("Defina a prioridade entre 1 e 5: ", 1, 5);
 
         String categoria = "Outros";
         switch (checarCategoria) {
-            case 1: categoria = "Trabalho"; break;
-            case 2: categoria = "Estudos"; break;
-            case 3: categoria = "Outros"; break;
+            case 1:
+                categoria = "Trabalho";
+                break;
+            case 2:
+                categoria = "Estudos";
+                break;
+            case 3:
+                categoria = "Outros";
+                break;
         }
 
         //Retorna um novo objeto
@@ -45,35 +53,45 @@ public class TarefaController {
         String descricao = validarString("Digite a descrição da tarefa: ");
         LocalDate dataTermino;
         int prioridade = validarInt("Defina a prioridade entre 1 e 5: ", 1, 5);
-        int checarCategoria = validarInt("Defina a categoria 1-Trabalho | 2-Estudos | 3-Outros: ",1,3);
+        int checarCategoria = validarInt("Defina a categoria 1-Trabalho | 2-Estudos | 3-Outros: ", 1, 3);
 
         String categoria = "Outros";
         switch (checarCategoria) {
-            case 1: categoria = "Trabalho"; break;
-            case 2: categoria = "Estudos"; break;
-            case 3: categoria = "Outros"; break;
+            case 1:
+                categoria = "Trabalho";
+                break;
+            case 2:
+                categoria = "Estudos";
+                break;
+            case 3:
+                categoria = "Outros";
+                break;
         }
 
-        int checarStatus = validarInt("Defina o status 1-TODO | 2-DOING | 3-DONE: ",1,3);
+        int checarStatus = validarInt("Defina o status 1-TODO | 2-DOING | 3-DONE: ", 1, 3);
 
         String status = "TODO";
         switch (checarStatus) {
-            case 1: status = "TODO"; break;
-            case 2: status = "DOING"; break;
-            case 3: status = "DONE"; break;
+            case 1:
+                status = "TODO";
+                break;
+            case 2:
+                status = "DOING";
+                break;
+            case 3:
+                status = "DONE";
+                break;
         }
         // Verifica se a tarefa já foi finalizada e atribui uma data a dataTermino caso seja verdadeiro
-        if (status.equals("DONE")){
+        if (status.equals("DONE")) {
             dataTermino = LocalDate.now();
         } else {
-            dataTermino = LocalDate.of(0001,01,01);
+            dataTermino = LocalDate.of(0001, 01, 01);
         }
 
         //Retorna um novo objeto
         return new Tarefa(nome, descricao, dataTermino, prioridade, categoria, status);
     }
-
-
 
     // MÉTODOS PARA VALIDAÇÃO DA ENTRADA DE DADOS
     // Definição do método para validar um valor passado como Long
@@ -117,65 +135,66 @@ public class TarefaController {
         }
     }
 
-    // EXIBIÇÕES
-    // Cabecalho da lista de tarefas
-    public static void cabecalhoTarefaController() {
-
-        System.out.println("\n-------------------------------------------------------------");
-        System.out.println("ID | NOME | DESCRICAO | DATA DE TERMINO | CATEGORIA | STATUS |");
-        System.out.println("--------------------------------------------------------------");
+    private static String contarStatus(){
+        int contadorTODO = 0;
+        int contadorDOING = 0;
+        int contadorDONE = 0;
+        List<Tarefa> tarefas  = ordenarTarefaAcao();
+        for (Tarefa tarefa : tarefas) {
+            tarefa.getStatus();
+            if (tarefa.getStatus().equals("TODO")) {
+                contadorTODO++;
+            }
+            if (tarefa.getStatus().equals("DOING")) {
+                contadorDOING++;
+            }
+            if (tarefa.getStatus().equals("DONE")) {
+                contadorDONE++;
+            }
+        }
+        return "-------------------------------------------\n" +
+                "QUANTIDADE DE ATIVIDADES POR STATUS: \n" +
+                "TODO: " + contadorTODO + "\nDOING: " + contadorDOING + "\nDONE: " + contadorDONE;
     }
 
-    // Rodapé da lista de tarefas com opção de ordenação
-    public static void rodapeTarefaController() {
-        System.out.println("\n-------------------------ORDENAR POR-------------------------");
-        System.out.println("1 - Prioridade   |     2 - Categoria       |        3 - Status");
-        System.out.println("--------------------------------------------------------------");
+    // EXIBIÇÕES
 
+    public static void quantidadeStatus(){
+        System.out.println(contarStatus());
+    }
+
+    // Recebe a opção de ordenação das tarefas por prioridade, categoria ou status e exibe a lista ordenada
+    public static void receberOpcaoPrioridade() {
         List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarfas
         // Reutilização da melhoria na entrada de dados
         int ordem = validarInt("\nDefina a ordenação entre 1 e 3: ", 1, 3);
 
         switch (ordem) {
             case 1:
-                listaDeTarefas.sort(TarefaComparator.porPrioridade());
+                tabelaConsole(TarefaComparator.porPrioridade());
                 break;
             case 2:
-                listaDeTarefas.sort(TarefaComparator.porCategoria());
+                tabelaConsole(TarefaComparator.porCategoria());
                 break;
             case 3:
-                listaDeTarefas.sort(TarefaComparator.porStatus());
-        }
-
-        for (Tarefa tarefa : listaDeTarefas) {
-            System.out.println(tarefa);
+                tabelaConsole(TarefaComparator.porStatus());
         }
 
     }
 
-    // Entrada de dados para escolher id da tarefa a ser deletada
+    // Entrada de dados para escolher id da tarefa a ser DELETADA
     public static String deletarTarefaController() {
-        cabecalhoTarefaController();
-        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarefas
-        // Ordenda exibição de lista por ID
-        listaDeTarefas.sort(TarefaComparator.porId());
-        // Mostra a lista de tarefas
-        for (Tarefa tarefa : listaDeTarefas) {
-            System.out.println(tarefa);
-        }
+        // Mostrar a lista de tarefas e Ordenar exibição de lista por ID
+        tabelaConsole(TarefaComparator.porId());
+        // Valida opção escolhida
         return validarString("\nDigite o ID da tarefa que deseja deletar: ");
     }
 
     // Entrada de dados para escolher id da tarefa a ser editada
     public static String atualizarTarefaController() {
-        cabecalhoTarefaController();
-        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarefas
-        // Ordenda exibição de lista por ID
-        listaDeTarefas.sort(TarefaComparator.porId());
-        // Mostra a lista de tarefas
-        for (Tarefa tarefa : listaDeTarefas) {
-            System.out.println(tarefa);
-        }
+        // Mostrar a lista de tarefas e Ordenar exibição de lista por ID
+        tabelaConsole(TarefaComparator.porId());
+        // Valida opção escolhida
         return validarString("\nDigite o ID da tarefa que deseja editar: ");
     }
 
@@ -195,11 +214,9 @@ public class TarefaController {
 
     // Método Mostrar Tarefa Controller
     public static void mostrarTarefaController() {
-        cabecalhoTarefaController();
-        List<Tarefa> listaDeTarefas = ordenarTarefaAcao(); // Obter a lista de tarefas
-        for (Tarefa tarefa : listaDeTarefas) {
-            System.out.println(tarefa);
-        }
+        // Mostrar a lista de tarefas e Ordenar exibição de lista por ID
+        tabelaConsole(TarefaComparator.porId());
+        // Exibe rodapé para e recebe a resposta para ordenar
         rodapeTarefaController();
     }
 
@@ -220,5 +237,7 @@ public class TarefaController {
             System.out.println("\nNão foi possível editar tarefa!");
         }
     }
+
+
 
 }
