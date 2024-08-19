@@ -1,7 +1,6 @@
 package model;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Tarefa {
 
@@ -9,24 +8,25 @@ public class Tarefa {
     private Long id;
     private String nome;
     private String descricao;
-    private LocalDate dataTermino = LocalDate.of(0001,01,01);
+    private LocalDateTime dataTermino;
     private int prioridade;
     private String categoria;
     private String status = "TODO";
 
 
     // Construtor da classe Tarefa Para CRIAÇÃO
-    public Tarefa(Long id, String nome, String descricao, int prioridade, String categoria) {
+    public Tarefa(Long id, String nome, String descricao, LocalDateTime dataTermino, int prioridade, String categoria) {
 
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+        this.dataTermino = dataTermino;
         this.prioridade = prioridade;
         this.categoria = categoria;
     }
 
     // Construtor da classe Tarefa Para EDIÇÃO
-    public Tarefa(String nome, String descricao,LocalDate dataTermino, int prioridade, String categoria, String status) {
+    public Tarefa(String nome, String descricao,LocalDateTime dataTermino, int prioridade, String categoria, String status) {
 
         this.nome = nome;
         this.descricao = descricao;
@@ -37,7 +37,7 @@ public class Tarefa {
     }
 
     // Construtor da classe Tarefa completo
-    public Tarefa(Long id, String nome, String descricao,LocalDate dataTermino, int prioridade, String categoria, String status) {
+    public Tarefa(Long id, String nome, String descricao,LocalDateTime dataTermino, int prioridade, String categoria, String status) {
 
         this.id = id;
         this.nome = nome;
@@ -80,11 +80,11 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public LocalDate getDataTermino() {
+    public LocalDateTime getDataTermino() {
         return dataTermino;
     }
 
-    public void setDataTermino(LocalDate dataTermino) {
+    public void setDataTermino(LocalDateTime dataTermino) {
 
         this.dataTermino = dataTermino;
     }

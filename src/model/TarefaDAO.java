@@ -2,6 +2,7 @@ package model;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -18,9 +19,19 @@ public class TarefaDAO {
         // Ler todas as tarefas existentes do arquivo
         List<Tarefa> tarefas = OrdenarTarefaDAO();
 
+        // Encontre o maior id existente
+        Long maiorId = tarefas.stream()
+                .map(Tarefa::getId)
+                .max(Long::compare)
+                .orElse(0L); // Caso não haja nenhuma tarefa, começar com 0
+
+        // Conceitos sobre stream para fixação, e para estudo mais aprofundado
+        // https://www.oracle.com/br/technical-resources/articles/java-stream-api.html
+
         // Adicionar a nova tarefa
         Tarefa novaTarefa = TarefaController.adicionaTarefaController();
         if (novaTarefa != null) {
+            novaTarefa.setId(maiorId + 1); // Define um novo id incrementado
             tarefas.add(novaTarefa);
 
             // Ordenar a lista de tarefas pela prioridade
@@ -104,7 +115,7 @@ public class TarefaDAO {
                 System.out.println("\nValores atuais da tarefa:");
                 System.out.println("Nome: " + tarefa.getNome());
                 System.out.println("Descrição: " + tarefa.getDescricao());
-                System.out.println("Data de Término: " + (tarefa.getDataTermino().equals(LocalDate.of(1, 1, 1)) ? "----------" : tarefa.getDataTermino()));
+                System.out.println("Data de Término: " + tarefa.getDataTermino());
                 System.out.println("Prioridade: " + tarefa.getPrioridade());
                 System.out.println("Categoria: " + tarefa.getCategoria());
                 System.out.println("Status: " + tarefa.getStatus()+"\n");
@@ -175,7 +186,7 @@ public class TarefaDAO {
                     Long id = Long.parseLong(parts[0]);
                     String nome = parts[1];
                     String descricao = parts[2];
-                    LocalDate dataTermino = LocalDate.parse(parts[3]);
+                    LocalDateTime dataTermino = LocalDateTime.parse(parts[3]);
                     int prioridade = Integer.parseInt(parts[4]);
                     String categoria = parts[5];
                     String status = parts[6];

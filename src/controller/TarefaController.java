@@ -3,10 +3,14 @@ package controller;
 import model.Tarefa;
 import model.TarefaDAO;
 import utilitarios.TarefaComparator;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import static controller.TabelaConsoleController.tabelaConsole;
 import static model.TarefaDAO.ordenarTarefaAcao;
@@ -17,13 +21,16 @@ public class TarefaController {
     // Declarando o scanner como static o mesmo ficará aberto e disponível para todos os métodos que precisarem
     private final static Scanner scanner = new Scanner(System.in);
 
+    static DateTimeFormatter entradaFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
     // Entrada de dados para o usuário preencher os dados na criação da tarefa
     public static Tarefa formularioCadastroTarefaController() {
 
         // Melhoria na entrada e no tratamento de dados
-        Long id = validarLong("\nDigite o ID: ");
+        //Long id = validarLong("\nDigite o ID: ");
         String nome = validarString("Digite o nome: ");
         String descricao = validarString("Digite a descrição: ");
+        LocalDateTime dataTermino = validarEConverterDataHora("Digite a data e hora (dd-MM-yyyy HH:mm): ");
         int checarCategoria = validarInt("Defina a categoria 1-Trabalho | 2-Estudos | 3-Outros: ", 1, 3);
         int prioridade = validarInt("Defina a prioridade entre 1 e 5: ", 1, 5);
 
@@ -41,7 +48,7 @@ public class TarefaController {
         }
 
         //Retorna um novo objeto
-        return new Tarefa(id, nome, descricao, prioridade, categoria);
+        return new Tarefa(null, nome, descricao,dataTermino, prioridade, categoria);
     }
 
     // Entrada de dados para o usuário preencher os dados na EDIÇÃO da tarefa
@@ -50,7 +57,8 @@ public class TarefaController {
         // Melhoria na entrada e no tratamento de dados
         String nome = validarString("Digite o nome da tarefa: ");
         String descricao = validarString("Digite a descrição da tarefa: ");
-        LocalDate dataTermino;
+        String checarDataHora = String.valueOf(validarEConverterDataHora("Digite a data e hora (dd-MM-yyyy HH:mm): "));
+        LocalDateTime dataTermino = LocalDateTime.parse(checarDataHora, entradaFormatter);
         int prioridade = validarInt("Defina a prioridade entre 1 e 5: ", 1, 5);
         int checarCategoria = validarInt("Defina a categoria 1-Trabalho | 2-Estudos | 3-Outros: ", 1, 3);
 
@@ -81,12 +89,12 @@ public class TarefaController {
                 status = "DONE";
                 break;
         }
-        // Verifica se a tarefa já foi finalizada e atribui uma data a dataTermino caso seja verdadeiro
-        if (status.equals("DONE")) {
-            dataTermino = LocalDate.now();
-        } else {
-            dataTermino = LocalDate.of(0001, 01, 01);
-        }
+//        // Verifica se a tarefa já foi finalizada e atribui uma data a dataTermino caso seja verdadeiro
+//        if (status.equals("DONE")) {
+//            dataTermino = LocalDate.now();
+//        } else {
+//            dataTermino = LocalDate.of(0001, 01, 01);
+//        }
 
         //Retorna um novo objeto
         return new Tarefa(nome, descricao, dataTermino, prioridade, categoria, status);
@@ -106,16 +114,17 @@ public class TarefaController {
     }
 
     // Definição do método para validar um valor passado como String
-    private static String validarString(String mensagem) {
-        while (true) {
-            System.out.print(mensagem);
-            String entrada = scanner.nextLine();
-            if (entrada != null && !entrada.trim().isEmpty()) {
-                return entrada;
+        private static String validarString(String mensagem) {
+            while (true) {
+                System.out.print(mensagem);
+                String entrada = scanner.nextLine();
+                if (entrada != null && !entrada.trim().isEmpty()) {
+                    return entrada;
+                }
+                System.out.println("\nEntrada inválida! Digite novamente.");
             }
-            System.out.println("\nEntrada inválida! Digite novamente.");
         }
-    }
+
 
     // Definição do método para validar um valor passado como Int
     private static int validarInt(String mensagem, int min, int max) {
@@ -131,6 +140,21 @@ public class TarefaController {
                 System.out.println("\nNúmero inválido! Digite um número válido.");
             }
 
+        }
+    }
+
+    // Definição do método para validar um valor passado como Data
+    private static LocalDateTime validarEConverterDataHora(String mensagem) {
+
+        while (true) {
+            System.out.print(mensagem);
+            String entrada = scanner.nextLine();
+            try {
+                return LocalDateTime.parse(entrada, entradaFormatter);
+
+            } catch (DateTimeParseException e) {
+                System.out.println("\nData/hora inválida! O formato esperado é: dd-MM-yyyy HH:mm. Tente novamente.");
+            }
         }
     }
 

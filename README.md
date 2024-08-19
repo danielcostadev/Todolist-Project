@@ -104,7 +104,12 @@ TODOlist é uma aplicação Java que permite o gerenciamento eficiente de tarefa
    ```bash
    java -cp bin view.ToDoList
 
-### Download do arquivo JAR
+### Download do arquivo JAR v3.0.0
+
+- Id gerado de forma incremental
+- Formato e lógica da Data do Término alterada (Agora exibe data e hora futuras) cadastro manual
+
+---
 
 - **Link:** [Clique aqui para baixar](https://github.com/danielcostadev/Todolist-Project/raw/master/Todolist-Project.rar) 
 - Após baixar o arquivo RAR, extraia escolhendo a opção "Extrair aqui".
