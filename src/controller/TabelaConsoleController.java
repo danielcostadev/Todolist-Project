@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import static controller.TarefaController.entradaFormatter;
 import static model.TarefaDAO.ordenarTarefaAcao;
 
 public class TabelaConsoleController {
@@ -26,7 +28,7 @@ public class TabelaConsoleController {
                     tarefa.getId().toString(),
                     tarefa.getNome(),
                     tarefa.getDescricao(),
-                    tarefa.getDataTermino().equals(LocalDate.of(1, 1, 1)) ? "----------" : tarefa.getDataTermino().toString(),
+                    tarefa.getDataTermino().format(entradaFormatter),
                     Integer.toString(tarefa.getPrioridade()),
                     tarefa.getCategoria(),
                     tarefa.getStatus()
