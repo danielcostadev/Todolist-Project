@@ -1,0 +1,236 @@
+
+/*Geral*/
+body,
+p,
+h1,
+h2,
+input,
+textarea {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    font-size: 0.9em;
+    font-weight: 400;
+    background-color: #f5f5f5;
+
+}
+
+h1 {
+    color: #2564cf;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+/*Topbar*/
+#topbar {
+    background-color: #2564cf;
+    color: #fff;
+    padding: 10px 10px;
+    height: 30px;
+}
+
+#topbar h2,
+#topbar ul,
+#topbar-list li,
+#topbar-list,
+#topbar nav {
+    display: inline-block;
+    padding: 0;
+}
+
+#topbar h2 {
+    margin: 0;
+    line-height: 30px;
+}
+
+/* Menu principal */
+.menu-topo nav {
+    float: left;
+}
+
+.menu-topo li {
+    margin: 0 5px;
+    position: relative;
+}
+
+/* Link do menu principal */
+.menu-topo li a {
+    text-decoration: none;
+    color: #444;
+    font-size: 1em;
+}
+
+.menu-topo li a:hover {
+    color: #2564cf;
+}
+
+/* Menu dropdown */
+.menu-topo li ul {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background-color: #fff;
+    display: none;
+    padding: 0; 
+    margin: 0;  
+    list-style: none; 
+    border: 1px solid #ccc; 
+    z-index: 1000; 
+}
+
+.menu-topo li ul li {
+    display: block;
+    width: 150px;
+}
+
+.menu-topo li ul li a {
+    display: block;
+    padding: 10px; 
+    color: #444;
+    font-size: 0.9em; 
+}
+
+.menu-topo li ul li a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Exibir dropdown ao passar o mouse */
+.menu-topo li:hover ul,
+.menu-topo li.over ul {
+    display: block;
+}
+
+/*Conteúdo Principal*/
+
+#principal {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Botões*/
+
+.botao-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.botao1,
+.botao2,
+.botao3 {
+    width: 100px;
+    text-decoration: none;
+    padding: 5px 5px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+}
+.botao1 {
+    background-color: #1da003;
+}
+.botao2 {
+    background-color: #000080;
+}
+.botao3 {
+    background-color: #ff0000;
+}
+
+/* Caixa central para exibir tarefas*/
+.caixa-branca{
+    background-color: #fff;
+    padding: 5px;
+    margin: 15px 5px auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 90%;
+}
+
+.caixa1 {
+    width: 320px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #000080;
+    border-radius: 5px;
+}
+
+.caixa2 {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #000080;
+    border-radius: 5px;
+}
+
+#caixa3 {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+}
+
+/* Tabela */
+
+#tabela {
+    margin-top: 5px;
+    max-width: 1200px;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#tabela th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    background-color: #2564cf;
+    color: #fff;
+}
+
+#tabela td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+#rodape {
+    background-color: #000080;
+    color: #fff;
+    text-align: center;
+    padding: 10px 10px;
+    height: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#rodape .destacado {
+    font-weight: bold;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .caixa-branca {
+        padding:0 20px; 
+        width: 80%;    
+    } 
+}
+
+@media (max-width: 480px) {
+    .caixa-branca {
+        padding: 15px;
+        width: 90%;   
+    }
+
+    
+}
