@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link rel="stylesheet" href="css/style.css">
     <title>TODO List - ACZG 6.0</title>
 </head>
@@ -18,107 +19,141 @@
 
     <main id="principal">
         <div class="caixa-branca">
-            <section class="menu-topo">
-                <nav>
-                    <ul id="topbar-list">
 
-                        <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 -4 26 24" fill="none" stroke="#000000" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>Adicionar nova tarefa</a></li>
-                        <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 -4 24 24" fill="none" stroke="#000000" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="8" y1="6" x2="21" y2="6"></line>
-                                    <line x1="8" y1="12" x2="21" y2="12"></line>
-                                    <line x1="8" y1="18" x2="21" y2="18"></line>
-                                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                                </svg> Classificar</a>
-                            <ul>
-                                <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 -4 28 24" fill="none" stroke="#000000" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                        </svg> Data</a></li>
-                                <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 -4 28 24" fill="none" stroke="#000000" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <line x1="12" y1="20" x2="12" y2="10"></line>
-                                            <line x1="18" y1="20" x2="18" y2="4"></line>
-                                            <line x1="6" y1="20" x2="6" y2="16"></line>
-                                        </svg> Prioridade</a></li>
-                                <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            viewBox="0 -4 28 24" fill="none" stroke="#000000" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <polyline points="9 11 12 14 22 4"></polyline>
-                                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                                        </svg> Status</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </section>
+            <!-- Menu do topo -->
+            <nav class="menu-topo">
+                <ul id="topbar-list">
 
+                    <li><button id="botao-adicionar-nova-tarefa"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" viewBox="0 -4 26 24" fill="none" stroke="#000000" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>Adicionar nova tarefa</button></li>
+                    <li><button id="botao-classificar-tarefas"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" viewBox="0 -4 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg> Classificar</button>
+                        <ul>
+                            <li><button id="botao-classificar-tarefas"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" viewBox="0 -4 28 24" fill="none" stroke="#000000"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg> Data</button></li>
+                            <li><button id="botao-classificar-tarefas"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" viewBox="0 -4 28 24" fill="none" stroke="#000000"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="20" x2="12" y2="10"></line>
+                                        <line x1="18" y1="20" x2="18" y2="4"></line>
+                                        <line x1="6" y1="20" x2="6" y2="16"></line>
+                                    </svg> Prioridade</button></li>
+                            <li><button id="botao-classificar-tarefas"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" viewBox="0 -4 28 24" fill="none" stroke="#000000"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="9 11 12 14 22 4"></polyline>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg> Status</button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Menu do topo -->
         </div>
 
-        <section class="caixa-branca">
+        <!-- Cadastro de nova tarefa -->
+        <section id="caixa-branca" class="caixa-branca" style="display: initial;">
 
-            <table id="tabela">
+            <div class="caixa-cadastro">
+
+                <h1>Adicionar nova tarefa</h1>
+                <form id="frmCadastro" name="frmCadastro">
+                    <div class="formularioCadastro">
+                        <label for="nome">Nome da tarefa: </label>
+                        <input type="text" name="nome" placeholder="Dê um nome à tarefa (Ex: Estudar...)"
+                            class="Caixa1">
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="descricao">Descrição da tarefa: </label>
+                        <input type="text" name="descricao" placeholder="Digite uma breve descrição" class="Caixa2">
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="data">Defina data e hora de conclusão: </label>
+                        <input type="datetime-local" name="data" class="Caixa1">
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="categoria">Categoria da tarefa:</label>
+                        <select name="categoria" id="categoria">
+                            <option value="">Selecione a categoria</option>
+                            <option value="trabalho">Trabalho</option>
+                            <option value="estudos">Estudos</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="prioridade">Prioridade da tarefa:</label>
+                        <select name="prioridade" id="prioridade">
+                            <option value="">Selecione a prioridade</option>
+                            <option value="baixa">1 - BAIXA</option>
+                            <option value="media">2 - MÉDIA</option>
+                            <option value="alta">3 - ALTA</option>
+                            <option value="urgente">4 - URGENTE</option>
+                        </select>
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="status">Status da tarefa:</label>
+                        <select name="status" id="status">
+                            <option value="">Selecione o status</option>
+                            <option value="todo">TODO</option>
+                            <option value="doing">DOING</option>
+                            <option value="done">DONE</option>
+                        </select>
+                    </div>
+
+                    <input type="button" id="adicionar" value="Adicionar" class="botao4">
+                    <input type="button" id="limpar" value="Limpar" class="botao5">
+                    <input type="button" id="cancelar" value="Cancelar" class="botao6">
+
+                </form>
+
+            </div>
+
+        </section>
+
+        <!-- Fim Cadastro de nova tarefa -->
+
+        <section class="caixa-branca-tarefas">
+
+            <!-- Exibição da lista de tarefas -->
+            <table id="tabela-tarefas">
                 <thead>
-
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
                         <th>DATA DE TERMINO</th>
                         <th>OPÇÕES</th>
                     </tr>
-
-                <tbody>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Esse é um teste para nome de tarefa, para a lista de tarefas</td>
-                        <td>04/09/2024</td>
-                        <td>
-                            <div class="botao-container">
-                                <button class="botao1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 -3 24 24" fill="none" stroke="#fff" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg> Ver</button>
-
-                                <button class="botao2"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
-                                        viewBox="0 -1 24 24" fill="none" stroke="#fff" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34">
-                                        </path>
-                                        <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
-                                    </svg> Editar</button>
-
-                                <button class="botao3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                    </svg> Apagar</button>
-                            </div>
-
-                        </td>
-                    </tr>
+                <tbody id="tabela-itens">
 
                 </tbody>
+                <!-- Listagem de tarefas é feita de forma dinâmica -->
+
                 </thead>
             </table>
+            <!-- Fim Exibição da lista de tarefas -->
         </section>
         <section></section>
 
@@ -128,7 +163,6 @@
         © Todos os direitore reservados - Desenvolvido por <span class="destacado">Daniel Costa</span>
 
     </footer>
-
 
     <script src="js/scripts.js"></script>
 </body>
