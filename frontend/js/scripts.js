@@ -1,30 +1,47 @@
-// Abrir formulário para adicionar nova tarefa
+// Define variáveis para tratamento e geração de estrutura geral
+var tabela = document.getElementById("tabela-tarefas");
+var tabelaItens = document.getElementById("tabela-itens");
+var botaoAdicionar = document.getElementById("adicionar");
+var botaoSalvar = document.getElementById("salvar");
+var botaoLimpar = document.getElementById("limpar");
+var botaoCancelar = document.getElementById("cancelar");
+var botaoDesfazer = document.getElementById("desfazer");
+var botaoCancelarEdicao = document.getElementById("cancelarEdicao");
+var caixaFormularioCadastro = document.getElementById("caixa-branca-cadastro");
+var caixaFormularioEdicao = document.getElementById("caixa-branca-editar");
+var formularioCadastro = document.getElementById("frmCadastro");
+var formularioEdicao = document.getElementById("frmEdicao");
+
+// Abre formulário para adicionar nova tarefa
 document.getElementById("botao-adicionar-nova-tarefa").onclick = function () {
-    document.getElementById("caixa-branca").style.display = "initial";
+    caixaFormularioCadastro.style.display = "initial";
+    caixaFormularioEdicao.style.display = "none";
+
 };
 
-// Atualiza lista de tarefas com infomações do localstorage, sempre que a página é carregada completamente
+// // Atualiza lista de tarefas com infomações do localstorage, sempre que a página é carregada completamente
 document.addEventListener("DOMContentLoaded", function () {
     listarTarefas();
-})
+});
+
+
+function limparFormulario(formulario) {
+    formulario.reset();
+};
+
+let limparFrmCadastro = formularioCadastro;
+let limparFrmEdicao = formularioEdicao; 
+
+
 
 // Validação de dados do formulário
-function validarDados() {
-
-    const campos = [
-        { nome: "nome", mensagem: "O campo Nome está vazio." },
-        { nome: "descricao", mensagem: "O campo Descrição está vazio." },
-        { nome: "data", mensagem: "O campo Data está vazio." },
-        { nome: "categoria", mensagem: "O campo Categoria está vazio." },
-        { nome: "prioridade", mensagem: "O campo Prioridade está vazio." },
-        { nome: "status", mensagem: "O campo Status está vazio." }
-    ];
+function validarDados(campos, formulario) {
 
     for (const campo of campos) {
-        let valor = frmCadastro[campo.nome].value.trim();
+        let valor = formulario[campo.nome].value.trim();
         if (!valor) {
             alert(campo.mensagem);
-            frmCadastro[campo.nome].focus()
+            formulario[campo.nome].focus()
             return false;
         }
     }
@@ -32,9 +49,28 @@ function validarDados() {
     return true;
 };
 
-// Define variáveis para tratamento e geração de estrutura
-var tabela = document.getElementById("tabela-tarefas");
-var tabelaItens = document.getElementById("tabela-itens");
+// Definição e campos do formulário de cadastro para validação
+const camposCadastro = [
+    { nome: "nome", mensagem: "O campo Nome está vazio." },
+    { nome: "descricao", mensagem: "O campo Descrição está vazio." },
+    { nome: "data", mensagem: "O campo Data está vazio." },
+    { nome: "categoria", mensagem: "O campo Categoria está vazio." },
+    { nome: "prioridade", mensagem: "O campo Prioridade está vazio." },
+    { nome: "status", mensagem: "O campo Status está vazio." }
+];
+
+// Definição e campos do formulário de ddição para validação
+const camposEdicao = [
+    { nome: "nomeEdit", mensagem: "O campo Nome está vazio." },
+    { nome: "descricaoEdit", mensagem: "O campo Descrição está vazio." },
+    { nome: "dataEdit", mensagem: "O campo Data está vazio." },
+    { nome: "categoriaEdit", mensagem: "O campo Categoria está vazio." },
+    { nome: "prioridadeEdit", mensagem: "O campo Prioridade está vazio." },
+    { nome: "statusEdit", mensagem: "O campo Status está vazio." }
+];
+
+
+
 
 function cadastrarTarefa() {
     // Lista para guardar dados das tarefas antes de enviar para o localStorage
@@ -58,7 +94,146 @@ function cadastrarTarefa() {
     // Armazena a lista atualizada no localStorage
     localStorage.setItem("minhaTarefa", JSON.stringify(listaTarefas));
 
+    alert("Tarefa cadastrada com sucesso!");
+
+}
+
+botaoAdicionar.onclick = function () {
+
+    if (validarDados(camposCadastro,frmCadastro)) {
+
+        caixaFormularioCadastro.style.display = "none";
+        cadastrarTarefa();
+        limparFormulario(limparFrmCadastro);
+        listarTarefas();
+
+    };
 };
+
+botaoLimpar.onclick = function () {
+
+    let resposta = confirm('Tem certeza que deseja limpar o formulário?');
+
+    if (resposta === true) {
+        limparFormulario(limparFrmCadastro);
+    }
+};
+
+botaoCancelar.onclick = function () {
+
+    let resposta = confirm('Tem certeza que deseja fechar o formulário?');
+
+    if (resposta === true) {
+        limparFormulario(limparFrmCadastro);
+        caixaFormularioCadastro.style.display = "none";
+    }
+
+};
+
+
+
+function preencherFormulario(idTarefa) {
+
+
+    // Lista para guardar dados das tarefas antes de enviar para o localStorage
+    let listaTarefas = JSON.parse(localStorage.getItem("minhaTarefa")) || [];
+    // Localiza a tarefa com base no ID
+    let elementoTarefa = listaTarefas.find(tarefa => tarefa.id === idTarefa);
+
+    if (elementoTarefa) {
+        // Exibe o formulário de edição
+        caixaFormularioEdicao.style.display = "initial";
+
+        // Preenche os campos do formulário com os dados da tarefa
+        document.querySelector('input[name="id"]').value = elementoTarefa.id || "";
+        document.querySelector('input[name="nomeEdit"]').value = elementoTarefa.nome || "";
+        document.querySelector('input[name="descricaoEdit"]').value = elementoTarefa.descricao || "";
+        document.querySelector('input[name="dataEdit"]').value = elementoTarefa.data || "";
+        document.querySelector('select[name="categoriaEdit"]').value = elementoTarefa.categoria || "";
+        document.querySelector('select[name="prioridadeEdit"]').value = elementoTarefa.prioridade || "";
+        document.querySelector('select[name="statusEdit"]').value = elementoTarefa.status || "";
+
+    } else {
+        console.log("Tarefa não encontrada.");
+    }
+
+}
+
+
+
+
+function salvarTarefaEditada(idTarefa) {
+    // Recupera a lista de tarefas do localStorage
+    let listaTarefas = JSON.parse(localStorage.getItem("minhaTarefa")) || [];
+
+    // Localiza o índice da tarefa no array
+    let indiceTarefa = listaTarefas.findIndex(tarefa => tarefa.id === idTarefa);
+
+    if (indiceTarefa !== -1) {
+        // Recebe os dados preenchidos no formulário
+        let nomeEdit = frmEdicao.nomeEdit.value;
+        let descricaoEdit = frmEdicao.descricaoEdit.value;
+        let dataEdit = frmEdicao.dataEdit.value;
+        let categoriaEdit = frmEdicao.categoriaEdit.value;
+        let prioridadeEdit = frmEdicao.prioridadeEdit.value;
+        let statusEdit = frmEdicao.statusEdit.value;
+
+        // Atualiza o objeto tarefa com os novos dados
+        listaTarefas[indiceTarefa] = {
+            id: idTarefa,
+            nome: nomeEdit,
+            descricao: descricaoEdit,
+            data: dataEdit,
+            categoria: categoriaEdit,
+            prioridade: prioridadeEdit,
+            status: statusEdit
+        };
+
+        // Armazena a lista atualizada no localStorage
+        localStorage.setItem("minhaTarefa", JSON.stringify(listaTarefas));
+
+        alert("Tarefa editada com sucesso!");
+
+    } else {
+
+        alert("Tarefa não pode ser editada, tente novamente!");
+
+    }
+}
+
+botaoSalvar.onclick = function () {
+    let idTarefa = parseInt(document.querySelector('input[name="id"]').value);
+
+    if (validarDados(camposEdicao,frmEdicao)) {
+        salvarTarefaEditada(idTarefa);
+        caixaFormularioEdicao.style.display = "none";
+        listarTarefas();
+    };
+};
+
+botaoDesfazer.onclick = function () {
+    let idTarefa = parseInt(document.querySelector('input[name="id"]').value);
+    let resposta = confirm('Tem certeza que deseja desfazer as alterações?');
+
+    if (resposta === true) {
+        limparFormulario(limparFrmEdicao);
+        preencherFormulario(idTarefa);
+    }
+};
+
+botaoCancelarEdicao.onclick = function () {
+
+    let resposta = confirm('Tem certeza que deseja fechar o formulário?');
+
+    if (resposta === true) {
+        caixaFormularioEdicao.style.display = "none";
+    }
+
+};
+
+
+
+
 
 function listarTarefas() {
 
@@ -67,7 +242,7 @@ function listarTarefas() {
     // Limpa lista de itens antes de preencher novamente
     tabelaItens.innerHTML = "";
 
-    dados.forEach(tarefa => {
+    dados.forEach((tarefa, index) => {
 
         var linha = tabelaItens.insertRow();
         var cellId = linha.insertCell(0);
@@ -82,45 +257,31 @@ function listarTarefas() {
         var botaoContainer = criarBotaoContainer(); // Função que cria o container com os botões
         cellOpcoes.appendChild(botaoContainer);
 
+        // Para que os botões funcionem, devemos atribuir eventos logo após serem adicionados ao DOM
+        var botaoEditar = botaoContainer.querySelector('.botao2');
+        var botaoExcluir = botaoContainer.querySelector('.botao3');
+
+        // Botão editar
+        botaoEditar.onclick = (function (id) {
+            return function () {
+                caixaFormularioCadastro.style.display = "none";
+                limparFormulario(limparFrmCadastro);
+                preencherFormulario(id);
+            };
+        })(tarefa.id);
+
+        // Botão excluir
+        botaoExcluir.onclick = (function (id) {
+            return function () {
+                // Lógica para excluir a tarefa com o ID fornecido
+                excluirTarefa(id); // Supondo que exista uma função excluirTarefa
+            };
+        })(tarefa.id);
     });
 
-}
-
-function limparFormulario() {
-    let formulario = document.getElementById("frmCadastro")
-    formulario.reset();
-}
-
-document.getElementById("adicionar").onclick = function () {
-
-    if (validarDados()) {
-
-        document.getElementById("caixa-branca").style.display = "none";
-        cadastrarTarefa();
-        listarTarefas();
-
-    };
 };
 
-document.getElementById("limpar").onclick = function () {
 
-    let resposta = confirm('Tem certeza que deseja limpar o formulário?');
-
-    if (resposta === true) {
-        limparFormulario();
-    }
-};
-
-document.getElementById("cancelar").onclick = function () {
-
-    let resposta = confirm('Tem certeza que deseja fechar o formulário?');
-
-    if (resposta === true) {
-        limparFormulario();
-        document.getElementById("caixa-branca").style.display = "none";
-    }
-
-};
 
 
 function criarBotaoContainer() {
@@ -129,49 +290,20 @@ function criarBotaoContainer() {
     divContainer.className = "botao-container";
 
     // Função auxiliar para criar botões com SVG
-    function criarBotao(classeBotao, svgConteudo, texto) {
+    function criarBotao(classeBotao, texto) {
         var botao = document.createElement("button");
         botao.className = classeBotao;
 
-        // Adiciona o SVG
-        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        svg.setAttribute("width", "16");
-        svg.setAttribute("height", "16");
-        svg.setAttribute("viewBox", "0 0 24 24");
-        svg.setAttribute("fill", "none");
-        svg.setAttribute("stroke", "#fff");
-        svg.setAttribute("stroke-width", "2");
-        svg.setAttribute("stroke-linecap", "round");
-        svg.setAttribute("stroke-linejoin", "round");
-
-        // Adiciona o conteúdo do SVG
-        svg.innerHTML = svgConteudo;
-
         // Adiciona o SVG e o texto ao botão
-        botao.appendChild(svg);
         botao.appendChild(document.createTextNode(" "));
 
         return botao;
     }
 
     // Criar os três botões
-    var botaoVer = criarBotao("botao1",
-        '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>' +
-        '<circle cx="12" cy="12" r="3"></circle>'
-    );
-
-    var botaoEditar = criarBotao("botao2",
-        '<path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>' +
-        '<polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>'
-    );
-
-    var botaoApagar = criarBotao("botao3",
-        '<polyline points="3 6 5 6 21 6"></polyline>' +
-        '<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>' +
-        '<line x1="10" y1="11" x2="10" y2="17"></line>' +
-        '<line x1="14" y1="11" x2="14" y2="17"></line>'
-    );
+    var botaoVer = criarBotao("botao1");
+    var botaoEditar = criarBotao("botao2");
+    var botaoApagar = criarBotao("botao3");
 
     // Adiciona os botões ao container
     divContainer.appendChild(botaoVer);
@@ -181,4 +313,3 @@ function criarBotaoContainer() {
     return divContainer;
 
 }
-
