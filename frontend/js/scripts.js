@@ -19,10 +19,31 @@ document.getElementById("botao-adicionar-nova-tarefa").onclick = function () {
 
 };
 
-// // Atualiza lista de tarefas com infomações do localstorage, sempre que a página é carregada completamente
+// Atualiza lista de tarefas com infomações obtidas do localstorage, sempre que a página é carregada completamente
 document.addEventListener("DOMContentLoaded", function () {
     listarTarefas();
 });
+
+
+function salvarNoLocalStorage(chave, dados) {
+    try {
+        localStorage.setItem(chave, JSON.stringify(dados));
+    } catch (erro) {
+        console.error("Erro ao salvar dados no localStorage:", erro);
+        alert("Ocorreu um erro ao salvar os dados. Tente novamente mais tarde.");
+    }
+}
+
+function obterDoLocalStorage(chave) {
+    try {
+        let dados = localStorage.getItem(chave);
+        return JSON.parse(dados) || [];
+    } catch (erro) {
+        console.error("Erro ao obter dados do localStorage:", erro);
+        alert("Ocorreu um erro ao recuperar os dados. Tente novamente mais tarde.");
+        return [];
+    }
+}
 
 
 function limparFormulario(formulario) {
@@ -30,11 +51,9 @@ function limparFormulario(formulario) {
 };
 
 let limparFrmCadastro = formularioCadastro;
-let limparFrmEdicao = formularioEdicao; 
+let limparFrmEdicao = formularioEdicao;
 
 
-
-// Validação de dados do formulário
 function validarDados(campos, formulario) {
 
     for (const campo of campos) {
@@ -59,7 +78,7 @@ const camposCadastro = [
     { nome: "status", mensagem: "O campo Status está vazio." }
 ];
 
-// Definição e campos do formulário de ddição para validação
+// Definição e campos do formulário de edição para validação
 const camposEdicao = [
     { nome: "nomeEdit", mensagem: "O campo Nome está vazio." },
     { nome: "descricaoEdit", mensagem: "O campo Descrição está vazio." },
@@ -70,14 +89,26 @@ const camposEdicao = [
 ];
 
 
+function gerarId() {
 
+    let listaTarefas = obterDoLocalStorage("minhaTarefa");
+    let idGlobal;
+
+    if (listaTarefas.length > 0) {
+        let ids = listaTarefas.map(tarefa => tarefa.id); // Extrair os IDs usando map
+        let maiorId = Math.max(...ids); // Pega o maior valor dentro doo array ... < é chamado de operador spread, separa todos os itens de um array 1 por 1
+        idGlobal = maiorId + 1;
+    } else {
+        idGlobal = 1;
+    }
+
+    return idGlobal;
+}
 
 function cadastrarTarefa() {
-    // Lista para guardar dados das tarefas antes de enviar para o localStorage
-    let listaTarefas = JSON.parse(localStorage.getItem("minhaTarefa")) || [];
+    let listaTarefas = obterDoLocalStorage("minhaTarefa");
 
-    // recebe os dados preenchidos no formulário
-    let id = listaTarefas.length + 1;
+    let id = gerarId();
     let nome = frmCadastro.nome.value;
     let descricao = frmCadastro.descricao.value;
     let data = frmCadastro.data.value;
@@ -85,14 +116,11 @@ function cadastrarTarefa() {
     let prioridade = frmCadastro.prioridade.value;
     let status = frmCadastro.status.value;
 
-    // cria o objeto tarefa
     const tarefa = { id: id, nome: nome, descricao: descricao, data: data, categoria: categoria, prioridade: prioridade, status: status };
 
-    // Adiciona a tarefa na lista
     listaTarefas.push(tarefa);
 
-    // Armazena a lista atualizada no localStorage
-    localStorage.setItem("minhaTarefa", JSON.stringify(listaTarefas));
+    salvarNoLocalStorage("minhaTarefa", listaTarefas);
 
     alert("Tarefa cadastrada com sucesso!");
 
@@ -100,7 +128,7 @@ function cadastrarTarefa() {
 
 botaoAdicionar.onclick = function () {
 
-    if (validarDados(camposCadastro,frmCadastro)) {
+    if (validarDados(camposCadastro, frmCadastro)) {
 
         caixaFormularioCadastro.style.display = "none";
         cadastrarTarefa();
@@ -134,17 +162,14 @@ botaoCancelar.onclick = function () {
 
 function preencherFormulario(idTarefa) {
 
-
-    // Lista para guardar dados das tarefas antes de enviar para o localStorage
-    let listaTarefas = JSON.parse(localStorage.getItem("minhaTarefa")) || [];
+    let listaTarefas = obterDoLocalStorage("minhaTarefa");
     // Localiza a tarefa com base no ID
     let elementoTarefa = listaTarefas.find(tarefa => tarefa.id === idTarefa);
 
     if (elementoTarefa) {
-        // Exibe o formulário de edição
+
         caixaFormularioEdicao.style.display = "initial";
 
-        // Preenche os campos do formulário com os dados da tarefa
         document.querySelector('input[name="id"]').value = elementoTarefa.id || "";
         document.querySelector('input[name="nomeEdit"]').value = elementoTarefa.nome || "";
         document.querySelector('input[name="descricaoEdit"]').value = elementoTarefa.descricao || "";
@@ -163,14 +188,14 @@ function preencherFormulario(idTarefa) {
 
 
 function salvarTarefaEditada(idTarefa) {
-    // Recupera a lista de tarefas do localStorage
-    let listaTarefas = JSON.parse(localStorage.getItem("minhaTarefa")) || [];
+
+    let listaTarefas = obterDoLocalStorage("minhaTarefa");
 
     // Localiza o índice da tarefa no array
     let indiceTarefa = listaTarefas.findIndex(tarefa => tarefa.id === idTarefa);
 
     if (indiceTarefa !== -1) {
-        // Recebe os dados preenchidos no formulário
+
         let nomeEdit = frmEdicao.nomeEdit.value;
         let descricaoEdit = frmEdicao.descricaoEdit.value;
         let dataEdit = frmEdicao.dataEdit.value;
@@ -189,8 +214,7 @@ function salvarTarefaEditada(idTarefa) {
             status: statusEdit
         };
 
-        // Armazena a lista atualizada no localStorage
-        localStorage.setItem("minhaTarefa", JSON.stringify(listaTarefas));
+        salvarNoLocalStorage("minhaTarefa", listaTarefas);
 
         alert("Tarefa editada com sucesso!");
 
@@ -204,7 +228,7 @@ function salvarTarefaEditada(idTarefa) {
 botaoSalvar.onclick = function () {
     let idTarefa = parseInt(document.querySelector('input[name="id"]').value);
 
-    if (validarDados(camposEdicao,frmEdicao)) {
+    if (validarDados(camposEdicao, frmEdicao)) {
         salvarTarefaEditada(idTarefa);
         caixaFormularioEdicao.style.display = "none";
         listarTarefas();
@@ -233,13 +257,36 @@ botaoCancelarEdicao.onclick = function () {
 
 
 
+function excluirTarefa(idTarefa) {
+
+    let listaTarefas = obterDoLocalStorage("minhaTarefa");
+
+    let indiceTarefa = listaTarefas.findIndex(tarefa => tarefa.id === idTarefa);
+
+    if (indiceTarefa !== -1) {
+
+        let resposta = confirm('Tem certeza que deseja remover a tarefa?');
+
+        if (resposta === true) {
+
+            listaTarefas.splice(indiceTarefa, 1);
+
+            salvarNoLocalStorage("minhaTarefa", listaTarefas);
+        }
+
+        listarTarefas();
+    } else {
+
+        alert("Tarefa não pode ser removida, tente novamente!");
+    }
+}
+
 
 
 function listarTarefas() {
 
-    let dados = JSON.parse(localStorage.getItem("minhaTarefa")) || [];
+    let dados = obterDoLocalStorage("minhaTarefa");
 
-    // Limpa lista de itens antes de preencher novamente
     tabelaItens.innerHTML = "";
 
     dados.forEach((tarefa, index) => {
@@ -261,7 +308,6 @@ function listarTarefas() {
         var botaoEditar = botaoContainer.querySelector('.botao2');
         var botaoExcluir = botaoContainer.querySelector('.botao3');
 
-        // Botão editar
         botaoEditar.onclick = (function (id) {
             return function () {
                 caixaFormularioCadastro.style.display = "none";
@@ -270,19 +316,14 @@ function listarTarefas() {
             };
         })(tarefa.id);
 
-        // Botão excluir
         botaoExcluir.onclick = (function (id) {
             return function () {
-                // Lógica para excluir a tarefa com o ID fornecido
-                excluirTarefa(id); // Supondo que exista uma função excluirTarefa
+                excluirTarefa(id);
             };
         })(tarefa.id);
     });
 
 };
-
-
-
 
 function criarBotaoContainer() {
     // Cria o div com a classe 'botao-container'
@@ -294,7 +335,7 @@ function criarBotaoContainer() {
         var botao = document.createElement("button");
         botao.className = classeBotao;
 
-        // Adiciona o SVG e o texto ao botão
+        // Adiciona o SVG ao botão
         botao.appendChild(document.createTextNode(" "));
 
         return botao;
