@@ -124,6 +124,9 @@ pude ter um maior contato com o JavaScript, HTML, CSS o que me instigou a realiz
 
 ## Como Executar
 
+- **Link:** [Experimente a versão Web](https://danielcostadev.github.io/Todolist-Project/frontend/) 
+
+
 ### Pré-requisitos
 
 - JDK 8 ou superior instalado.
