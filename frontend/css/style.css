@@ -183,16 +183,16 @@ h2 {
 }
 
 .botao1 {
-    background: #1da003 url(/frontend/images/svg/eye.svg) no-repeat center center;
+    background: #1da003 url(../images/svg/eye.svg) no-repeat center center;
 }
 
 
 .botao2 {
-    background: #000080 url(/frontend/images/svg/edit.svg) no-repeat center center;
+    background: #000080 url(../images/svg/edit.svg) no-repeat center center;
 }
 
 .botao3 {
-    background: #ff0000 url(/frontend/images/svg/delete.svg) no-repeat center center;
+    background: #ff0000 url(../images/svg/delete.svg) no-repeat center center;
 }
 
 /* Caixas */
@@ -214,6 +214,16 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
     width: 90%;
+}
+
+.caixa-branca-exibicao {
+    text-align: left;
+    color: #000;
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin:0 auto;
+    border-radius: 5px;
 }
 
 .caixa1 {
@@ -415,16 +425,16 @@ h2 {
     }
     
     .botao1 {
-        background: #45a049 url(/frontend/images/svg/eye.svg) no-repeat center center;
+        background: #45a049 url(../images/svg/eye.svg) no-repeat center center;
     }
     
     
     .botao2 {
-        background: #000080 url(/frontend/images/svg/edit.svg) no-repeat center center;
+        background: #000080 url(../images/svg/edit.svg) no-repeat center center;
     }
     
     .botao3 {
-        background: #ff0000 url(/frontend/images/svg/delete.svg) no-repeat center center;
+        background: #ff0000 url(../images/svg/delete.svg) no-repeat center center;
     }
 }
 
