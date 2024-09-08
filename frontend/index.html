@@ -25,13 +25,15 @@
                 <ul id="topbar-list">
 
                     <li><button id="botao-adicionar-nova-tarefa">Adicionar nova tarefa</button></li>
-                    <li><button id="botao-classificar-tarefas"> Classificar</button>
+                    <!--TODO: Realizar classificação nas próximas versões-->
+                    
+                    <!-- <li><button id="botao-classificar-tarefas"> Classificar</button>
                         <ul>
                             <li><button id="botao-classificar-data"> Data</button></li>
                             <li><button id="botao-classificar-prioridade"> Prioridade</button></li>
                             <li><button id="botao-classificar-status"> Status</button></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
             <!-- Menu do topo -->
@@ -164,10 +166,26 @@
                     <input type="button" id="cancelarEdicao" value="Cancelar" class="botao6">
                 </form>
             </div>
-            
+
         </section>
 
         <!-- Fim Editar Tarefas-->
+
+        <!-- Seção para exibição dos dados -->
+        <div id="caixa-branca-exibicaoDados" class="caixa-branca" style="display: none;">
+
+            <div class="caixa-branca-exibicao">
+
+                <h2>Dados da Tarefa</h2>
+                <p><strong>Nome:</strong> <span id="exibicaoNome"></span></p>
+                <p><strong>Descrição:</strong> <span id="exibicaoDescricao"></span></p>
+                <p><strong>Data e Hora:</strong> <span id="exibicaoDataHora"></span></p>
+                <p><strong>Categoria:</strong> <span id="exibicaoCategoria"></span></p>
+                <p><strong>Prioridade:</strong> <span id="exibicaoPrioridade"></span></p>
+                <p><strong>Status:</strong> <span id="exibicaoStatus"></span></p>
+
+            </div>
+        </div>
 
         <section class="caixa-branca-tarefas">
 
@@ -176,9 +194,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>NOME</th>
-                        <th>DATA DE TERMINO</th>
-                        <th>OPÇÕES</th>
+                        <th>Nome</th>
+                        <th>Data de conclusão</th>
+                        <th>Status</th>
+                        <th>Opções</th>
                     </tr>
                 <tbody id="tabela-itens">
 

@@ -8,6 +8,7 @@ var botaoCancelar = document.getElementById("cancelar");
 var botaoDesfazer = document.getElementById("desfazer");
 var botaoCancelarEdicao = document.getElementById("cancelarEdicao");
 var caixaFormularioCadastro = document.getElementById("caixa-branca-cadastro");
+var caixaExibicaoDados = document.getElementById("caixa-branca-exibicaoDados");
 var caixaFormularioEdicao = document.getElementById("caixa-branca-editar");
 var formularioCadastro = document.getElementById("frmCadastro");
 var formularioEdicao = document.getElementById("frmEdicao");
@@ -295,22 +296,36 @@ function listarTarefas() {
         var cellId = linha.insertCell(0);
         var cellNome = linha.insertCell(1);
         var cellData = linha.insertCell(2);
-        var cellOpcoes = linha.insertCell(3);
+        var cellStatus = linha.insertCell(3);
+        var cellOpcoes = linha.insertCell(4);
 
         cellId.innerHTML = tarefa.id;
         cellNome.innerHTML = tarefa.nome;
-        cellData.innerHTML = tarefa.data;
+        cellData.innerHTML = formatarData(tarefa.data);
+        cellStatus.innerHTML = tarefa.status;
 
         var botaoContainer = criarBotaoContainer(); // Função que cria o container com os botões
         cellOpcoes.appendChild(botaoContainer);
 
         // Para que os botões funcionem, devemos atribuir eventos logo após serem adicionados ao DOM
+        var botaoVer = botaoContainer.querySelector('.botao1');
         var botaoEditar = botaoContainer.querySelector('.botao2');
         var botaoExcluir = botaoContainer.querySelector('.botao3');
+
+        botaoVer.onclick = (function (id){
+            return function () {
+                caixaFormularioCadastro.style.display = "none";
+                caixaFormularioEdicao.style.display = "none";
+                limparFormulario(limparFrmCadastro);
+                mostrarDados(id);
+            }
+
+        })(tarefa.id);
 
         botaoEditar.onclick = (function (id) {
             return function () {
                 caixaFormularioCadastro.style.display = "none";
+                caixaExibicaoDados.style.display = "none";
                 limparFormulario(limparFrmCadastro);
                 preencherFormulario(id);
             };
@@ -318,10 +333,37 @@ function listarTarefas() {
 
         botaoExcluir.onclick = (function (id) {
             return function () {
+                caixaExibicaoDados.style.display = "none";
+                caixaFormularioCadastro.style.display = "none";
+                caixaFormularioEdicao.style.display = "none";
+                limparFormulario(limparFrmCadastro);
                 excluirTarefa(id);
             };
         })(tarefa.id);
     });
+
+};
+
+function mostrarDados(idTarefa) {
+
+    let listaTarefas = obterDoLocalStorage("minhaTarefa");
+    // Localiza a tarefa com base no ID
+    let elementoTarefa = listaTarefas.find(tarefa => tarefa.id === idTarefa);
+
+    if (elementoTarefa) {
+
+        caixaExibicaoDados.style.display = "initial";
+
+        document.getElementById("exibicaoNome").innerHTML = elementoTarefa.nome || "";
+        document.getElementById("exibicaoDescricao").innerHTML = elementoTarefa.descricao || "";
+        document.getElementById("exibicaoDataHora").innerHTML = formatarData(elementoTarefa.data) || "";
+        document.getElementById("exibicaoCategoria").innerHTML = elementoTarefa.categoria || "";
+        document.getElementById("exibicaoPrioridade").innerHTML = elementoTarefa.prioridade || "";
+        document.getElementById("exibicaoStatus").innerHTML = elementoTarefa.status || "";
+
+    } else {
+        console.log("Tarefa não encontrada.");
+    }
 
 };
 
@@ -354,3 +396,17 @@ function criarBotaoContainer() {
     return divContainer;
 
 }
+
+function formatarData(dataString) {
+    const data = new Date(dataString);
+
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0'); 
+    const ano = data.getFullYear();
+    const horas = String(data.getHours()).padStart(2, '0');
+    const minutos = String(data.getMinutes()).padStart(2, '0');
+
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+}
+
+
