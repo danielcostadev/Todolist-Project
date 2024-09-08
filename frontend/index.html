@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <title>TODO List - ACZG 6.0</title>
+</head>
+
+<body>
+    <header id="topbar">
+        <h2>TODO List - ACZG 6.0</h2>
+    </header>
+
+    <main id="principal">
+        <div class="caixa-branca">
+
+            <!-- Menu do topo -->
+            <nav class="menu-topo">
+                <ul id="topbar-list">
+
+                    <li><button id="botao-adicionar-nova-tarefa">Adicionar nova tarefa</button></li>
+                    <!--TODO: Realizar classificação nas próximas versões-->
+                    
+                    <!-- <li><button id="botao-classificar-tarefas"> Classificar</button>
+                        <ul>
+                            <li><button id="botao-classificar-data"> Data</button></li>
+                            <li><button id="botao-classificar-prioridade"> Prioridade</button></li>
+                            <li><button id="botao-classificar-status"> Status</button></li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </nav>
+            <!-- Menu do topo -->
+        </div>
+
+        <!-- Cadastro de nova tarefa -->
+        <section id="caixa-branca-cadastro" class="caixa-branca" style="display: none;">
+
+            <div class="caixa-cadastro">
+
+                <h1>Adicionar nova tarefa</h1>
+                <form id="frmCadastro" name="frmCadastro">
+                    <div class="formularioCadastro">
+                        <label for="nome">Nome da tarefa: </label>
+                        <input type="text" name="nome" placeholder="Dê um nome à tarefa (Ex: Estudar...)"
+                            class="Caixa1">
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="descricao">Descrição da tarefa: </label>
+                        <input type="text" name="descricao" placeholder="Digite uma breve descrição" class="Caixa2">
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="data">Defina data e hora de conclusão: </label>
+                        <input type="datetime-local" name="data" class="Caixa1">
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="categoria">Categoria da tarefa:</label>
+                        <select name="categoria" id="categoria">
+                            <option value="">Selecione a categoria</option>
+                            <option value="trabalho">Trabalho</option>
+                            <option value="estudos">Estudos</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="prioridade">Prioridade da tarefa:</label>
+                        <select name="prioridade" id="prioridade">
+                            <option value="">Selecione a prioridade</option>
+                            <option value="baixa">1 - BAIXA</option>
+                            <option value="media">2 - MÉDIA</option>
+                            <option value="alta">3 - ALTA</option>
+                            <option value="urgente">4 - URGENTE</option>
+                        </select>
+                    </div>
+
+                    <div class="formularioCadastro">
+                        <label for="status">Status da tarefa:</label>
+                        <select name="status" id="status">
+                            <option value="">Selecione o status</option>
+                            <option value="todo">TODO</option>
+                            <option value="doing">DOING</option>
+                            <option value="done">DONE</option>
+                        </select>
+                    </div>
+
+                    <input type="button" id="adicionar" value="Adicionar" class="botao4">
+                    <input type="button" id="limpar" value="Limpar" class="botao5">
+                    <input type="button" id="cancelar" value="Cancelar" class="botao6">
+
+                </form>
+
+            </div>
+
+        </section>
+
+        <!-- Fim Cadastro de nova tarefa -->
+
+        <!-- Editar Tarefas -->
+
+        <section id="caixa-branca-editar" class="caixa-branca" style="display: none;">
+
+            <div class="caixa-cadastro">
+                <h1>Editar tarefa</h1>
+                <div id="aviso" class="mensagem sucesso" style="display: none;"></div>
+                <form id="frmEdicao" name="frmEdicao">
+                    <div class="formularioEdicao">
+                        <label for="id">ID da tarefa: </label>
+                        <input type="text" name="id" placeholder="ID da tarefa" class="Caixa1" readonly>
+                    </div>
+                    <div class="formularioEdicao">
+                        <label for="nome">Nome da tarefa: </label>
+                        <input type="text" name="nomeEdit" placeholder="Nome da tarefa" class="Caixa1">
+                    </div>
+                    <div class="formularioEdicao">
+                        <label for="descricao">Descrição da tarefa: </label>
+                        <input type="text" name="descricaoEdit" placeholder="Descrição da tarefa" class="Caixa1">
+                    </div>
+                    <div class="formularioEdicao">
+                        <label for="data">Defina data e hora de conclusão: </label>
+                        <input type="datetime-local" name="dataEdit" class="Caixa1">
+                    </div>
+
+                    <div class="formularioEdicao">
+                        <label for="categoria">Categoria da tarefa:</label>
+                        <select name="categoriaEdit" id="categoria">
+                            <option value="">Selecione a categoria</option>
+                            <option value="trabalho">Trabalho</option>
+                            <option value="estudos">Estudos</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="formularioEdicao">
+                        <label for="prioridade">Prioridade da tarefa:</label>
+                        <select name="prioridadeEdit" id="prioridade">
+                            <option value="">Selecione a prioridade</option>
+                            <option value="baixa">1 - BAIXA</option>
+                            <option value="media">2 - MÉDIA</option>
+                            <option value="alta">3 - ALTA</option>
+                            <option value="urgente">4 - URGENTE</option>
+                        </select>
+                    </div>
+
+                    <div class="formularioEdicao">
+                        <label for="status">Status da tarefa:</label>
+                        <select name="statusEdit" id="status">
+                            <option value="">Selecione o status</option>
+                            <option value="todo">TODO</option>
+                            <option value="doing">DOING</option>
+                            <option value="done">DONE</option>
+                        </select>
+                    </div>
+
+                    <input type="button" id="salvar" value="Salvar" class="botao4">
+                    <input type="button" id="desfazer" value="Desfazer" class="botao5">
+                    <input type="button" id="cancelarEdicao" value="Cancelar" class="botao6">
+                </form>
+            </div>
+
+        </section>
+
+        <!-- Fim Editar Tarefas-->
+
+        <!-- Seção para exibição dos dados -->
+        <div id="caixa-branca-exibicaoDados" class="caixa-branca" style="display: none;">
+
+            <div class="caixa-branca-exibicao">
+
+                <h2>Dados da Tarefa</h2>
+                <p><strong>Nome:</strong> <span id="exibicaoNome"></span></p>
+                <p><strong>Descrição:</strong> <span id="exibicaoDescricao"></span></p>
+                <p><strong>Data e Hora:</strong> <span id="exibicaoDataHora"></span></p>
+                <p><strong>Categoria:</strong> <span id="exibicaoCategoria"></span></p>
+                <p><strong>Prioridade:</strong> <span id="exibicaoPrioridade"></span></p>
+                <p><strong>Status:</strong> <span id="exibicaoStatus"></span></p>
+
+            </div>
+        </div>
+
+        <section class="caixa-branca-tarefas">
+
+            <!-- Exibição da lista de tarefas -->
+            <table id="tabela-tarefas">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Data de conclusão</th>
+                        <th>Status</th>
+                        <th>Opções</th>
+                    </tr>
+                <tbody id="tabela-itens">
+
+                </tbody>
+                <!-- Listagem de tarefas é feita de forma dinâmica -->
+
+                </thead>
+            </table>
+            <!-- Fim Exibição da lista de tarefas -->
+        </section>
+        <section></section>
+
+    </main>
+    <footer id="rodape">
+
+        © Todos os direitore reservados - Desenvolvido por <span class="destacado">Daniel Costa</span>
+
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

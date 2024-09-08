@@ -1,0 +1,463 @@
+/*Geral*/
+body,
+p,
+h1,
+h2,
+input,
+textarea {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    font-size: 0.9em;
+    font-weight: 400;
+    background-color: #f5f5f5;
+
+}
+
+h1 {
+    color: #2564cf;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+/*Topbar*/
+#topbar {
+    background-color: #2564cf;
+    color: #fff;
+    padding: 10px 10px;
+    height: 30px;
+}
+
+#topbar h2,
+#topbar ul,
+#topbar-list li,
+#topbar-list,
+#topbar nav {
+    display: inline-block;
+    padding: 0;
+}
+
+#topbar h2 {
+    margin: 0;
+    line-height: 30px;
+}
+
+/* Mensagem */
+
+
+
+/* Menu principal */
+.menu-topo nav {
+    float: left;
+}
+
+.menu-topo li {
+    margin: 0 5px;
+    position: relative;
+}
+
+.menu-topo li a:hover {
+    color: #2564cf;
+}
+
+/* Menu dropdown */
+.menu-topo li ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    display: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+
+.menu-topo li ul li {
+    display: block;
+    width: 150px;
+}
+
+#botao-adicionar-nova-tarefa {
+
+    text-decoration: none;
+    padding: 5px 0 5px 30px;
+    color: #444;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+    background: #fff url(../images/svg/add.svg) no-repeat left 10px center;
+
+}
+
+#botao-classificar-tarefas {
+
+    text-decoration: none;
+    padding: 5px 0 5px 30px;
+    color: #444;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+    background: #fff url(../images/svg/swap.svg) no-repeat left 10px center;
+
+}
+
+#botao-classificar-data, 
+#botao-classificar-prioridade, 
+#botao-classificar-status{
+
+    text-decoration: none;
+    padding: 5px 0 5px 30px;
+    color: #444;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+}
+#botao-classificar-data{
+    background: #fff url(../images/svg/calendar.svg) no-repeat left 10px center;
+}
+#botao-classificar-prioridade{
+    background: #fff url(../images/svg/signal.svg) no-repeat left 10px center;
+}
+#botao-classificar-status{
+    background: #fff url(../images/svg/checklist.svg) no-repeat left 10px center;
+}
+
+
+.caixa-branca li ul li 
+#botao-classificar-data:hover,
+#botao-classificar-prioridade:hover,
+#botao-classificar-status:hover{
+    color: #2564cf;
+}
+
+/* Exibir dropdown ao passar o mouse */
+.menu-topo li:hover ul,
+.menu-topo li.over ul {
+    display: block;
+}
+
+/*Conteúdo Principal*/
+
+#principal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Botões*/
+
+.botao-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.botao1,
+.botao2,
+.botao3 {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px 5px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+}
+
+.botao1 {
+    background: #1da003 url(../images/svg/eye.svg) no-repeat center center;
+}
+
+
+.botao2 {
+    background: #000080 url(../images/svg/edit.svg) no-repeat center center;
+}
+
+.botao3 {
+    background: #ff0000 url(../images/svg/delete.svg) no-repeat center center;
+}
+
+/* Caixas */
+.caixa-branca {
+    background-color: #fff;
+    padding: 5px;
+    margin: 15px 5px auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 90%;
+}
+
+.caixa-branca-tarefas {
+    background-color: #fff;
+    padding: 5px;
+    margin: 15px 5px 60px 5px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 90%;
+}
+
+.caixa-branca-exibicao {
+    text-align: left;
+    color: #000;
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin:0 auto;
+    border-radius: 5px;
+}
+
+.caixa1 {
+    width: 320px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #000080;
+    border-radius: 5px;
+}
+
+.caixa2 {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #000080;
+    border-radius: 5px;
+}
+
+#caixa3 {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+}
+
+/* Tabela */
+
+#tabela-tarefas {
+    margin-top: 5px;
+    max-width: 1200px;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#tabela-tarefas th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    background-color: #2564cf;
+    color: #fff;
+}
+
+#tabela-tarefas td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.caixa-cadastro {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.caixa-cadastro h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.caixa-cadastro table {
+    width: 100%;
+}
+
+.caixa-cadastro td {
+    padding: 10px;
+}
+
+.caixa-cadastro label {
+    font-weight: bold;
+    color: #333;
+}
+
+.caixa-cadastro input[type="text"],
+.caixa-cadastro input[type="datetime-local"],
+.caixa-cadastro select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.caixa-cadastro input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Botões do cadastro */
+.caixa-cadastro .botao4,
+.botao5,
+.botao6 {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    width: 32%;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.caixa-cadastro .botao4 {
+    background-color: #4CAF50;
+}
+
+.caixa-cadastro .botao5 {
+    background-color: #2564cf;
+}
+
+.caixa-cadastro .botao6 {
+    background-color: #ff0000;
+}
+
+.caixa-cadastro .botao4:hover {
+    background-color: #45a049;
+}
+
+.caixa-cadastro .botao5:hover {
+    background-color: #2564cf;
+}
+
+.caixa-cadastro .botao6:hover {
+    background-color: #ff0000;
+}
+
+/* Formulários */
+.formularioCadastro, .formularioEdicao {
+    margin-bottom: 15px;
+}
+
+.formularioCadastro label, .formularioEdicao label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.formularioCadastro input, .formularioEdicao input
+.formularioCadastro select, .formularioEdicao select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.botao-container {
+    display: flex;
+    gap: 10px; 
+    justify-content: center; 
+}
+
+.botao-container button {
+    padding: 5px 5px;
+    cursor: pointer;
+}
+
+/* Rodapé */
+
+#rodape {
+    background-color: #000080;
+    color: #fff;
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px 10px;
+    height: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#rodape .destacado {
+    font-weight: bold;
+}
+
+/* Responsividade para telas menores */
+
+@media (max-width: 768px) {
+    .caixa-branca, .caixa-branca-tarefas {
+        padding: 10px 10px;
+        width: 85%;
+    }
+
+    body {
+        font-size: 0.7em;
+        font-weight: 400;
+        background-color: #f5f5f5;
+
+    }
+
+    .botao1,
+    .botao2,
+    .botao3 {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        text-decoration: none;
+   
+    }
+    
+    .botao1 {
+        background: #45a049 url(../images/svg/eye.svg) no-repeat center center;
+    }
+    
+    
+    .botao2 {
+        background: #000080 url(../images/svg/edit.svg) no-repeat center center;
+    }
+    
+    .botao3 {
+        background: #ff0000 url(../images/svg/delete.svg) no-repeat center center;
+    }
+}
+
+@media (max-width: 600px) {
+    .caixa-cadastro {
+        padding: 15px;
+    }
+
+    .caixa-cadastro table {
+        width: 100%;
+    }
+
+    .caixa-cadastro td {
+        display: block;
+        width: 100%;
+        padding: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .caixa-branca, .caixa-branca-tarefas {
+        padding: 15px;
+        width: 90%;
+    }
+
+}

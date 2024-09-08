@@ -3,16 +3,24 @@
 TODOlist é uma aplicação Java que permite o gerenciamento eficiente de tarefas. Com funcionalidades como criação, edição, exclusão e ordenação de tarefas, esta aplicação está sendo desenvolvida como um dos projetos do ACZG 6.0.
 
 ## Funcionalidades
-
+- **Ver Tarefa Individual**: Disponível a partir da versão 3.5.0
 - **Adicionar Tarefas**: Crie novas tarefas especificando nome, descrição, data de término, prioridade, categoria e status.
 - **Editar Tarefas**: Modifique as informações das tarefas existentes para mantê-las atualizadas.
 - **Excluir Tarefas**: Remova tarefas que não são mais necessárias.
-- **Ordenação de Tarefas**: Ordene as tarefas por prioridade, categoria ou status.
-- **Persistência de Dados**: As tarefas são armazenadas em um arquivo CSV para fácil manipulação e recuperação.
+- **Ordenação de Tarefas**: Ordene as tarefas por prioridade, categoria ou status. (No momento não está disponível na versão web)
+- **Persistência de Dados**: As tarefas são armazenadas em um arquivo CSV para fácil manipulação e recuperação. Na versão web acontece via localStorage do navegador
 - **Validação de Dados**: Entrada de dados validada para garantir a integridade das informações.
 
 ## Tecnologias Utilizadas
 
+### Fronend
+- **HTML5**: Linguagem de marcação de texto
+- **CSS3**: Linguagem de estilização de folhas de estilo em cascata
+- **JavaScript**: Linguagem de programação interatividade
+- **LOCAL STORAGE**: Armazenamento interno do navegador. (Não é indicado para armazenar dados sensíveis, é apagado ao limpar dados.)
+- **VISUAL STUDIO CODE**: Ambiente de Desenvolvimento Integrado (IDE) utilizado.
+
+### Backend
 - **Java**: Linguagem de programação principal utilizada no desenvolvimento do projeto.
 - **Git e GitHub**: Para versionamento e armazenamento do projeto
 - **JDK 8**: Versão do Java Development Kit utilizada.
@@ -20,6 +28,9 @@ TODOlist é uma aplicação Java que permite o gerenciamento eficiente de tarefa
 - **IntelliJ IDEA**: Ambiente de Desenvolvimento Integrado (IDE) utilizado.
 
 ## Minhas breves considerações
+
+> A versão web do TODO List foi um verdadeiro desafio, que me fez obter conhecimento sobre novas tecnologias até então pouco experimentadas por mim,
+pude ter um maior contato com o JavaScript, HTML, CSS o que me instigou a realizar diversas pesquisas, afim de obter um resultado apresentável para o projeto em questão.
 
 > O projeto do TODO List e suas funcionalidades é um ótimo desafio para explorar diversos conceitos aprendidos até o momento um exemplo POO: Polimorfismo, Encapsulamento, herança e etc.
 >
@@ -37,6 +48,43 @@ TODOlist é uma aplicação Java que permite o gerenciamento eficiente de tarefa
 >
 
 ## COMO FUNCIONA?
+
+## Versão Web
+
+### Tela Principal
+- Ao executar a aplicação o usuário é apresentado a uma modesta página web com design simples e responsivo.
+- Onde é possível escolher ações como Cadastrar, Ver Tarefa, Editar, Excluir ou Listar Tarefas
+### Adicionar Tarefa
+- Na opção de cadastrar tarefa o usuário preenche um breve formulário.
+- Durante o preenchimento do formulário são realizadas validações quanto a integridade dos dados.
+- Todas as entradas de dados passam por esse rigoroso sistema de validações.
+- Essas validações asseguram que não sejam lançadas exceções durante a execução da aplicação
+- Também garantem que não sejam passados dados nulos ou adversas aos dados esperados.
+- É possível limpar todos os dados preenchidos, graças a o método .reset do JavaScript.
+- Após o preenchimento da última informação, os dados são armazenados em uma lista.
+- Essa lista é cadastada no LocalStorage do navegador
+### Editar Tarefa
+- Ao lado de cada tarefa é possível pressionar o botão Editar que fica na aba de opções
+- Logo após os dados atuais da tarefa selecionada são exibidos para o usuário.
+- Então o usuário precisa preencher um formulário semelhante ao de cadastro, o processo é idêntico.
+- A lógica de edição é baseda no id de cada tarefa
+- É possível desfazer todas as edições através do botão desfazer.
+### Excluir Tarefa
+- Ao lado de cada tarefa é possível pressionar o botão Excluir que fica na aba de opções
+- O procedimento de excluir uma tarefa utiliza o método Slice do JS.
+- A lógica de exclusão é baseda no id de cada tarefa
+### Listar Tarefas
+- São exibidas as tarefas cadastradas que por sua vez são recuperadas de uma lista que foi previamente populada com os dados provenientes do localStorage
+- O arquivo CSV é lido pela classe DAO, e os dados são armazenados em uma lista.
+### Extra
+- Todo o processo é realizado com consultas ao localStorage que é a principal forma de "persistência" momentanea enquanto ainda não estou trabalhando com banco de dados real.
+- No projeto web utilizei a centralização de chamadas para conteúdo html e consultas ao DOM, armazenei esses valores em variáveis para melhor organização do código.
+- Foram utilizadas técnicas como, Closures, operador Spread, funções autoexecutáveis e etc.
+- A lógica de geração de id é baseada no maior id encontrado no localStorage, para que não haja repetição nem recontagem após o encerramento da aplicação.
+- Algumas operações sensíveis, como Excluir, Cancelar e etc requerem uma confirmação extra através de uma resposta no alert do JavaScript.
+
+## Versão CLI
+
 ### Tela Principal
 - Ao executar a aplicação o usuário é apresentado a um modesto Menu interativo
 - Onde é possível escolher ações como Cadastrar, Editar, Excluir ou Listar Tarefas
@@ -67,7 +115,7 @@ TODOlist é uma aplicação Java que permite o gerenciamento eficiente de tarefa
 ## Estrutura do Projeto
 
 ### O projeto está organizado da seguinte forma:
-
+- **Frontend**: Contém os arquivos responsáveis pelo funcionameno da aplicação no navegador.
 - **Controller**: Contém os métodos responsáveis por gerenciar as operações das tarefas.
 - **DAO (Data Access Object)**: Gerencia a leitura e escrita de dados no arquivo CSV.
 - **Model**: Define as classes principais do domínio, como `Tarefa`.
